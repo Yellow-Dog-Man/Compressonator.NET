@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compressonator.NET", "Compressonator.NET.csproj", "{78FC27F8-4E6B-42DA-B686-9338695198D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "..\Testing\Testing.csproj", "{15AA0744-BD00-4869-80C2-A7DDDD15AE28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{78FC27F8-4E6B-42DA-B686-9338695198D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78FC27F8-4E6B-42DA-B686-9338695198D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78FC27F8-4E6B-42DA-B686-9338695198D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15AA0744-BD00-4869-80C2-A7DDDD15AE28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15AA0744-BD00-4869-80C2-A7DDDD15AE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15AA0744-BD00-4869-80C2-A7DDDD15AE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15AA0744-BD00-4869-80C2-A7DDDD15AE28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
