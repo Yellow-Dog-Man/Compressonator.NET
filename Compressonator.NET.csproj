@@ -1,6 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Company>Yellow Dog Man Studios</Company>
+    <Authors>Yellow Dog Man Studios</Authors>
+    <PackageId>YellowDogMan.Compressonator.NET</PackageId>
+    <Description>.NET wrapper for the Compressonator library/framework by AMD, using P/Invoke</Description>
+    <Copyright>Copyright (c) Yellow Dog Man Studios s.r.o. 2023</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Yellow-Dog-Man/Compressonator.NET</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectURL>https://yellowdogman.com/</PackageProjectURL>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>compressonator</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
@@ -11,6 +27,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Images\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="CMP_Framework_MDd_DLL.dll">
