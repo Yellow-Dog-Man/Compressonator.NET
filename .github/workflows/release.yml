@@ -1,4 +1,4 @@
-name: Publish Library
+﻿name: Publish Library
 
 # When a release is published
 on:
