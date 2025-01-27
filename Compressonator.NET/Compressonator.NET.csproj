@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- NuGet Meta-data -->
   <PropertyGroup>
     <Company>Yellow Dog Man Studios</Company>
     <Authors>Yellow Dog Man Studios</Authors>
@@ -18,6 +19,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;win-x86;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
