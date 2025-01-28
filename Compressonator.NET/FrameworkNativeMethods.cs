@@ -64,7 +64,9 @@ namespace Compressonator.NET
             }
             catch
             {
+                Console.WriteLine(ex.ToString());
                 return false;
+
             }
         });
     }
