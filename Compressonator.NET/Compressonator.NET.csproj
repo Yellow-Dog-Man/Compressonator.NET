@@ -28,6 +28,11 @@
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
+  <PropertyGroup>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'win-x64'">$(DefineConstants);WINDOWS</DefineConstants>
+    <DefineConstants Condition="'$(RuntimeIdentifier)' == 'linux-x64'">$(DefineConstants);LINUX</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
   </ItemGroup>
 

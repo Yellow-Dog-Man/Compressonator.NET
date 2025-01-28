@@ -7,7 +7,11 @@ namespace Compressonator.NET
 {
     public static unsafe class SDK_NativeMethods
     {
+#if LINUX
+        const string LIBRARY_NAME = "libCMP_Compressonator.a";
+#else
         const string LIBRARY_NAME = "Compressonator_MD_DLL";
+#endif
 
         [DllImport(LIBRARY_NAME)]
         public static extern uint CMP_CalculateBufferSize([In] CMP_Texture texture);

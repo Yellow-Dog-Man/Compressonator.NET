@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
     public static unsafe class FrameworkNativeMethods
     {
+#if LINUX
+        const string LIBRARY_NAME = "libCMP_Framework.a";
+#else
         const string LIBRARY_NAME = "CMP_Framework_MD_DLL";
+#endif
+
 
         [DllImport(LIBRARY_NAME)]
         public static extern int CMP_CalcMinMipSize(int height, int width, int mipsLevel);
