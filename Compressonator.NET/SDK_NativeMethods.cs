@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
@@ -8,7 +6,7 @@ namespace Compressonator.NET
     public static unsafe class SDK_NativeMethods
     {
 #if LINUX
-        const string LIBRARY_NAME = "libCMP_Compressonator.a";
+        const string LIBRARY_NAME = "libCMP_Compressonator";
 #else
         const string LIBRARY_NAME = "Compressonator_MD_DLL";
 #endif

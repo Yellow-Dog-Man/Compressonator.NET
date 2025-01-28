@@ -6,7 +6,7 @@ namespace Compressonator.NET
     public static unsafe class FrameworkNativeMethods
     {
 #if LINUX
-        const string LIBRARY_NAME = "libCMP_Framework.a";
+        const string LIBRARY_NAME = "libCMP_Framework";
 #else
         const string LIBRARY_NAME = "CMP_Framework_MD_DLL";
 #endif
