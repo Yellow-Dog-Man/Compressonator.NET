@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- NuGet Meta-data -->
   <PropertyGroup>
     <Company>Yellow Dog Man Studios</Company>
     <Authors>Yellow Dog Man Studios</Authors>
@@ -18,46 +19,42 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!--Default runtime identifier-->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Images\icon.png" Pack="true" PackagePath="\"/>
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\Images\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- WINDOWS -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <ContentWithTargetPath Include="Native\win-x64\*.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="CMP_Framework_MDd_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="CMP_Framework_MD_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="CMP_Framework_MTd_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="CMP_Framework_MT_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Compressonator_MDd_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Compressonator_MD_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Compressonator_MTd_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Compressonator_MT_DLL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Native\win-x64\*.dll" Pack="True" PackagePath="runtimes\win-x64\native\"></None>
+  </ItemGroup>
+
+  <!-- LINUX -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <ContentWithTargetPath Include="Native\linux-x64\*.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Native\linux-x64\*.so" Pack="True" PackagePath="runtimes\linux-x64\native\"></None>
   </ItemGroup>
 
 </Project>
