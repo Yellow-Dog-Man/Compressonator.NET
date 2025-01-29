@@ -31,9 +31,8 @@ namespace Compressonator.NET
 
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
-                Console.WriteLine(ex.ToString());
                 return false;
             }
         });

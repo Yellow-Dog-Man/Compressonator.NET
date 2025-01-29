@@ -30,13 +30,7 @@
     <None Include="..\Images\icon.png" Pack="true" PackagePath="\" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Native\linux-x64\" />
-  </ItemGroup>
 
-  <!-- TODO: I want to make sure these aren't included TWICE in the eventual NUPKG,
-    but these are needed here so that the library works outside of Nuget - Prime
-  -->
   <!-- WINDOWS -->
   <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
     <ContentWithTargetPath Include="Native\win-x64\*.dll">
