@@ -16,6 +16,30 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U4)]
         public uint size;
 
+        // New to v4.5
+        // Flags to control parameters in Brotli-G compression preconditioning
+
+        [MarshalAs(UnmanagedType.U1)]
+        public bool doPreconditionBRLG;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool doDeltaEncodeBRLG;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool doSwizzleBRLG;
+
+        // New to v4.3
+
+        [MarshalAs(UnmanagedType.U4)]
+        public uint pageSize;
+
+        // New to v4.2
+
+        [MarshalAs(UnmanagedType.U1)]
+        public bool useRefinementSteps;
+        [MarshalAs(UnmanagedType.I4)]
+        public int refinementSteps;
+
+        // v4.1 and older settings
+
         [MarshalAs(UnmanagedType.U1)]
         public bool useChannelWeighting;
         [MarshalAs(UnmanagedType.R4)]
