@@ -32,17 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Native\linux-x64\" />
-    <Folder Include="Native\win-x64\" />
   </ItemGroup>
 
   <!-- TODO: I want to make sure these aren't included TWICE in the eventual NUPKG,
     but these are needed here so that the library works outside of Nuget - Prime
   -->
   <!-- WINDOWS -->
-  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
-    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
     <ContentWithTargetPath Include="Native\win-x64\*.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -56,10 +51,6 @@
   </ItemGroup>
 
   <!-- LINUX -->
-  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
-    <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
     <ContentWithTargetPath Include="Native\linux-x64\*.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
