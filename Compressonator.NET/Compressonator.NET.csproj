@@ -51,6 +51,10 @@
     </ContentWithTargetPath>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Native\win-x64\*.dll" Pack="True" PackagePath="runtimes\win-x64\native\"></None>
+  </ItemGroup>
+
   <!-- LINUX -->
   <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
     <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
@@ -62,6 +66,10 @@
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
       <TargetPath>%(Filename)%(Extension)</TargetPath>
     </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Native\linux-x64\*.so" Pack="True" PackagePath="runtimes\linux-x64\native\"></None>
   </ItemGroup>
 
 </Project>
