@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
     public static unsafe class SDK_NativeMethods
     {
-        const string LIBRARY_NAME = "Compressonator_MD_DLL";
+        const string LIBRARY_NAME = "CMP_Compressonator";
 
         [DllImport(LIBRARY_NAME)]
         public static extern uint CMP_CalculateBufferSize([In] CMP_Texture texture);
