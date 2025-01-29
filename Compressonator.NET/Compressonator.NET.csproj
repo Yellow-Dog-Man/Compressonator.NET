@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Images\icon.png" Pack="true" PackagePath="\"/>
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\Images\icon.png" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -34,6 +34,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Native\linux-x64\" />
+    <Folder Include="Native\win-x64\" />
   </ItemGroup>
 
 </Project>
