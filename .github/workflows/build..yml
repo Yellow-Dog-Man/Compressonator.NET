@@ -29,6 +29,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore --runtime $BUILD_RUNTIME
+      run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --configuration Release --runtime $BUILD_RUNTIME
+      run: dotnet test --no-restore --configuration Release
