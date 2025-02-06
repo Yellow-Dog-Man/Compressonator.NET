@@ -14,10 +14,21 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    name: build-and-test-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    env:
+      BUILD_RUNTIME: ${{ matrix.os == 'ubuntu-latest' && 'linux-x64' || 'windows-x64' }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --configuration Release
