@@ -16,6 +16,8 @@ jobs:
   build:
     name: build-and-test-${{matrix.os}}
     runs-on: ${{ matrix.os }}
+    env:
+      NET_OS: ${{ matrix.os == 'ubuntu-latest' && 'linux' || 'windows' }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -29,4 +31,4 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --configuration Release --os $NET_OS
