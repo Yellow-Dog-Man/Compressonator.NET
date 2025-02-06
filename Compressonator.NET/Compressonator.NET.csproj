@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <!-- WINDOWS -->
-  <ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64' Or '${CI}' == 'true'">
     <ContentWithTargetPath Include="Native\win-x64\*.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
@@ -45,7 +45,7 @@
   </ItemGroup>
 
   <!-- LINUX -->
-  <ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' Or '${CI}' == 'true'">
     <ContentWithTargetPath Include="Native\linux-x64\*.so">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
