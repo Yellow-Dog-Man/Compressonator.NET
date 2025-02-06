@@ -17,7 +17,7 @@ jobs:
     name: build-and-test-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     env:
-      NET_OS: ${{ matrix.os == 'ubuntu-latest' && 'linux' || 'windows' }}
+      BUILD_RUNTIME: ${{ matrix.os == 'ubuntu-latest' && 'linux-x64' || 'windows-x64' }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -29,6 +29,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore --runtime $BUILD_RUNTIME
     - name: Test
-      run: dotnet test --no-restore --configuration Release --os $NET_OS
+      run: dotnet test --no-restore --configuration Release --runtime $BUILD_RUNTIME
