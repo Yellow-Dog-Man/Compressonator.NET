@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public unsafe struct KernelDeviceInfo
     {
-        public fixed byte deviceName[256];
-        public fixed byte version[128];
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        public string deviceName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+        public string version;
         public int maxUCores;
     }
 }
