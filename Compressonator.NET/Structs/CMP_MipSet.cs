@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace Compressonator.NET
 {
     [StructLayout(LayoutKind.Sequential)]
-    public class CMP_MipSet
+    public class CMP_MipSet : IDisposable
     {
         [MarshalAs(UnmanagedType.I4)]
         public int width;
@@ -50,6 +50,10 @@ namespace Compressonator.NET
         public byte blockHeight;
         [MarshalAs(UnmanagedType.U1)]
         public byte blockDepth;
+        [MarshalAs(UnmanagedType.U1)]
+        public byte channels;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool isSigned;
 
         [MarshalAs(UnmanagedType.U4)]
         public uint mipWidth;
@@ -61,5 +65,35 @@ namespace Compressonator.NET
 
         public IntPtr mipLevelTable;
         public IntPtr reservedData;
+
+        [MarshalAs(UnmanagedType.U4)]
+        public int m_nIterations;
+
+        [MarshalAs(UnmanagedType.U4)]
+        public int m_atmiplevel;
+        [MarshalAs(UnmanagedType.U4)]
+        public int m_atfaceorslice;
+
+        private bool disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                FrameworkNativeMethods.CMP_FreeMipSet(this);
+                disposed = true;
+            }
+        }
+
+        ~CMP_MipSet()
+        {
+            Dispose(false);
+        }
     }
 }
