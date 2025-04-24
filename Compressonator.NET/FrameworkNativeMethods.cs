@@ -46,6 +46,9 @@ namespace Compressonator.NET
         [DllImport(LIBRARY_NAME)]
         public static extern CMP_ERROR CMP_CreateComputeLibrary(CMP_MipSet src, ref KernelOptions kernelOptions, IntPtr reserved);
 
+        [DllImport(LIBRARY_NAME)]
+        public static extern void CMP_InitFramework();
+
         public static bool IsSupported => _isSupported.Value;
 
         static readonly Lazy<bool> _isSupported = new Lazy<bool>(() =>

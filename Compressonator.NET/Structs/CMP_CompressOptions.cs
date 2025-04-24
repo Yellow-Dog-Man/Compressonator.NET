@@ -99,6 +99,8 @@ namespace Compressonator.NET
         public float inputKneeHigh;
         [MarshalAs(UnmanagedType.R4)]
         public float inputGamma;
+        [MarshalAs(UnmanagedType.R4)]
+        public float inputFilterGamma;
 
         [MarshalAs(UnmanagedType.I4)]
         public int cmpLevel;
@@ -139,6 +141,12 @@ namespace Compressonator.NET
         public bool getDeviceInfo;
         [MarshalAs(UnmanagedType.Struct)]
         public KernelDeviceInfo deviceInfo;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool genGPUMipMaps;
+        [MarshalAs(UnmanagedType.U1)]
+        public bool useSRGBFrames;
+        [MarshalAs(UnmanagedType.I4)]
+        public int miplevels;
 
         public CMP_CompressOptions()
         {
