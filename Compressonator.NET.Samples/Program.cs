@@ -13,7 +13,7 @@ public class Program
         string targetFile = Path.GetFullPath("../../../../Images/icon.dds");
         Console.WriteLine($"Processing source file: {sourceFile}");
 
-        using var mipSetIn = new CMP_MipSet();
+        CMP_MipSet mipSetIn = new();
         var cmpStatus = FrameworkNativeMethods.CMP_LoadTexture(sourceFile, mipSetIn);
         if (cmpStatus != CMP_ERROR.CMP_OK)
         {
@@ -33,7 +33,7 @@ public class Program
         if (prevMipLevels != mipSetIn.mipLevels)
             Console.WriteLine($"Changed mipmap levels {prevMipLevels}->{mipSetIn.mipLevels}");
 
-        using var mipSetCmp = new CMP_MipSet();
+        var mipSetCmp = new CMP_MipSet();
         var compressOptions = new CMP_CompressOptions()
         {
             quality = 0.9f,

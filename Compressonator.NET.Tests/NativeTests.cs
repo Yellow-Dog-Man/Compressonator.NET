@@ -14,4 +14,13 @@ public sealed class NativeTests
     {
         Assert.IsTrue(FrameworkNativeMethods.IsSupported, "Framework Native Methods should be supported.");
     }
+
+    /// <summary>
+    /// Test that this method just doesn't throw any exceptions.
+    /// </summary>
+    [TestMethod]
+    public void TestLibraryInitialization()
+    {
+        FrameworkNativeMethods.CMP_InitFramework();
+    }
 }
