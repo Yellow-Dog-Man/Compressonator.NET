@@ -26,14 +26,16 @@ public static class SnapshotUtilities
         var path = CurrentFile.Relative(relativePath);
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
 
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed"); 
 
-        Assert.IsTrue(File.Exists(path));
+        Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
 
         VerifyResult? res = await VerifyFile(path);
-        Assert.IsNotNull(res);
-        Assert.IsNull(res.Target);
+        Assert.IsNotNull(res, "Verify result must be present");
+        Assert.IsNull(res.Target, "Verify result must not be error");
 
         File.Delete(path); //Clean-up
+
+        Assert.IsFalse(File.Exists(path), $"Saved file must be cleaned up: {path}");
     }
 }
