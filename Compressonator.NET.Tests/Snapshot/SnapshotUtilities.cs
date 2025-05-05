@@ -32,6 +32,8 @@ public static class SnapshotUtilities
         Assert.IsNotNull(res);
         Assert.IsNull(res.Target);
 
+        Assert.IsTrue(File.Exists(path));
+
         File.Delete(path); //Clean-up
     }
 }
