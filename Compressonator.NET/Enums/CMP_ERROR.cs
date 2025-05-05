@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Compressonator.NET
+﻿namespace Compressonator.NET
 {
     public enum CMP_ERROR
     {
@@ -28,6 +24,12 @@ namespace Compressonator.NET
         CMP_ERR_UNABLE_TO_LOAD_ENCODER,        // Unable to load an encode library
         CMP_ERR_NOSHADER_CODE_DEFINED,         // No shader code is available for the requested framework
         CMP_ERR_GPU_DOESNOT_SUPPORT_COMPUTE,   // The GPU device selected does not support compute
+        CMP_ERR_NOPERFSTATS,                   // No Performance Stats are available
+        CMP_ERR_GPU_DOESNOT_SUPPORT_CMP_EXT,   // The GPU does not support the requested compression extension!
+        CMP_ERR_GAMMA_OUTOFRANGE,              // Gamma value set for processing is out of range
+        CMP_ERR_PLUGIN_SHAREDIO_NOT_SET,       // The plugin C_PluginSetSharedIO call was not set and is required for this plugin to operate
+        CMP_ERR_UNABLE_TO_INIT_D3DX,           // Unable to initialize DirectX SDK or get a specific DX API
+        CMP_FRAMEWORK_NOT_INITIALIZED,         // CMP_InitFramework failed or not called.
         CMP_ERR_GENERIC                        // An unknown error occurred.
     }
 }

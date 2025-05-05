@@ -18,12 +18,18 @@ public static class SnapshotUtilities
         var cmpStatus = FrameworkNativeMethods.CMP_LoadTexture(path, mipSetIn);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
+        UpdateMips(mipSetIn);
+
         return (cmpStatus, mipSetIn);
     }
-
-    public static async Task SaveVerifyDelete(string relativePath, CMP_MipSet set)
+    public static string GetFileNameForTest(string extension = "dds")
     {
-        var path = CurrentFile.Relative(relativePath);
+        return Path.ChangeExtension(Path.GetRandomFileName(), extension);
+    }
+
+    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds")
+    {
+        var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed"); 
@@ -37,5 +43,17 @@ public static class SnapshotUtilities
         File.Delete(path); //Clean-up
 
         Assert.IsFalse(File.Exists(path), $"Saved file must be cleaned up: {path}");
+    }
+
+    public static int UpdateMips(CMP_MipSet mipSetIn)
+    {
+        var prevMipLevels = mipSetIn.mipLevels;
+        if (mipSetIn.mipLevels > 1)
+            return 0;
+        
+        const int requestLevel = 10;
+
+        int nMinSize = FrameworkNativeMethods.CMP_CalcMinMipSize(mipSetIn.height, mipSetIn.width, requestLevel);
+        return FrameworkNativeMethods.CMP_GenerateMIPLevels(mipSetIn, nMinSize);
     }
 }

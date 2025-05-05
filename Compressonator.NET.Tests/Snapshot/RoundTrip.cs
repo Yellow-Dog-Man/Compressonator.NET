@@ -7,10 +7,10 @@ public class RoundTrip : SnapshotTestingBase
     public async Task BasicRoundTrip()
     {
         string sourceFile = "Resources/rainbow.png";
-        string targetFile = "Out/rainbow.png";
-
         var (res,set) = SnapshotUtilities.Load(sourceFile);
 
-        await SnapshotUtilities.SaveVerifyDelete(targetFile, set);
+        Assert.AreEqual(CMP_FORMAT.RGBA_8888, set.format);
+
+        await SnapshotUtilities.SaveVerifyDelete(set, "png");
     }
 }
