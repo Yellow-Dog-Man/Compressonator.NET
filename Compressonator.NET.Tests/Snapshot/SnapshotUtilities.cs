@@ -22,9 +22,14 @@ public static class SnapshotUtilities
 
         return (cmpStatus, mipSetIn);
     }
-    public static async Task SaveVerifyDelete(string relativePath, CMP_MipSet set)
+    public static string GetFileNameForTest(string extension = "dds")
     {
-        var path = CurrentFile.Relative(relativePath);
+        return Path.ChangeExtension(Path.GetRandomFileName(), extension);
+    }
+
+    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds")
+    {
+        var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed"); 

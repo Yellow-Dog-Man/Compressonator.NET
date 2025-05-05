@@ -32,7 +32,7 @@ public class CompressionTests : SnapshotTestingBase
         var cmpStatus = FrameworkNativeMethods.CMP_ProcessTexture(mipSetIn, mipSetOut, compressOptions, IntPtr.Zero);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
-        await SnapshotUtilities.SaveVerifyDelete("Out/cheese.dds", mipSetOut);
+        await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
     }
 
 }
