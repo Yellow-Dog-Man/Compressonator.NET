@@ -352,3 +352,8 @@ MigrationBackup/
 # Compressonator binaries
 CMP_*.dll
 Compressonator*.dll
+
+*.received.*
+Compressonator.NET.Tests/Snapshot/Resources/UHD-3840x2160/*
+Compressonator.NET.Tests/Snapshot/Out/*
+*.zip
