@@ -11,6 +11,8 @@ public class RoundTrip : SnapshotTestingBase
 
         var (res,set) = SnapshotUtilities.Load(sourceFile);
 
+        Assert.AreEqual(CMP_FORMAT.RGBA_8888, set.format);
+
         await SnapshotUtilities.SaveVerifyDelete(targetFile, set);
     }
 }

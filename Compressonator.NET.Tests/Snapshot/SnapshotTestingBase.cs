@@ -3,6 +3,7 @@
 [TestClass]
 public abstract partial class SnapshotTestingBase: VerifyBase
 {
+    public bool Initialized { get; } = false;
     [TestMethod]
     public Task Run() =>
         VerifyChecks.Run();
@@ -10,5 +11,6 @@ public abstract partial class SnapshotTestingBase: VerifyBase
     public SnapshotTestingBase()
     {
         FrameworkNativeMethods.CMP_InitFramework();
+        Initialized = true;
     }
 }
