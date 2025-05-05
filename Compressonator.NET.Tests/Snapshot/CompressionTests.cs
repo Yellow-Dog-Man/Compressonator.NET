@@ -11,6 +11,7 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC4, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC5, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC7, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC6H, "Resources/rainbow.png")]
     [DataTestMethod]
     public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath)
     {
