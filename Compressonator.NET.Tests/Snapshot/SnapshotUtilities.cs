@@ -28,11 +28,11 @@ public static class SnapshotUtilities
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
+        Assert.IsTrue(File.Exists(path));
+
         VerifyResult? res = await VerifyFile(path);
         Assert.IsNotNull(res);
         Assert.IsNull(res.Target);
-
-        Assert.IsTrue(File.Exists(path));
 
         File.Delete(path); //Clean-up
     }
