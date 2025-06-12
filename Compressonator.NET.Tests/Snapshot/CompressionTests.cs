@@ -1,6 +1,4 @@
-﻿using System.Net.NetworkInformation;
-
-namespace Compressonator.NET.Tests.Snapshot;
+﻿namespace Compressonator.NET.Tests.Snapshot;
 
 [TestClass]
 public class CompressionTests : SnapshotTestingBase
@@ -11,9 +9,9 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC4, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC5, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC7, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC6H, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC6H, "Resources/rainbow.png", 0.05f)]
     [DataTestMethod]
-    public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath)
+    public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath, float quality = 0.9f)
     {
         var sourceFormat = CMP_FORMAT.RGBA_8888;
 
@@ -23,7 +21,7 @@ public class CompressionTests : SnapshotTestingBase
         var compressOptions = new KernelOptions()
         {
             format = targetFormat,
-            quality = 0.9f,
+            quality = quality,
             threads = 0,
             srcformat = sourceFormat
         };
