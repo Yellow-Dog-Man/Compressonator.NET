@@ -9,9 +9,9 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC4, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC5, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC7, "Resources/rainbow.png", 0.05f)]
-    [DataRow(CMP_FORMAT.BC6H, "Resources/rainbow.png", 0.05f)]
+    [DataRow(CMP_FORMAT.BC6H, "Resources/rainbow.png", 0.05f, 1)]
     [DataTestMethod]
-    public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath, float quality = 0.9f)
+    public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath, float quality = 0.9f, int maxThreads = 0)
     {
         var sourceFormat = CMP_FORMAT.RGBA_8888;
 
@@ -22,7 +22,7 @@ public class CompressionTests : SnapshotTestingBase
         {
             format = targetFormat,
             quality = quality,
-            threads = 0,
+            threads = maxThreads,
             srcformat = sourceFormat
         };
 
