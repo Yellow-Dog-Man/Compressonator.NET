@@ -19,6 +19,7 @@ jobs:
     env:
       BUILD_RUNTIME: ${{ matrix.os == 'ubuntu-latest' && 'linux-x64' || 'windows-x64' }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
