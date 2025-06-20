@@ -15,17 +15,19 @@ public class CompressionTests : SnapshotTestingBase
     [DataTestMethod]
     public async Task TestCompression(CMP_FORMAT targetFormat, string inputFileRelativePath, float quality = 0.9f, int maxThreads = 0)
     {
-        var sourceFormat = CMP_FORMAT.RGBA_8888;
+        var expectedFormat = CMP_FORMAT.RGBA_8888;
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
-        Assert.AreEqual(sourceFormat, mipSetIn.format);
+
+        Assert.AreEqual(CMP_ERROR.CMP_OK, res);
+        Assert.AreEqual(expectedFormat, mipSetIn.format);
 
         var compressOptions = new KernelOptions()
         {
             format = targetFormat,
             quality = quality,
             threads = maxThreads,
-            srcformat = sourceFormat
+            srcformat = expectedFormat
         };
 
         CMP_MipSet mipSetOut = new();
@@ -34,6 +36,8 @@ public class CompressionTests : SnapshotTestingBase
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
+
+        FrameworkNativeMethods.CMP_FreeMipSet(mipSetIn);
     }
 
 }
