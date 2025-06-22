@@ -33,8 +33,6 @@ public static class SnapshotUtilities
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");
 
-        FrameworkNativeMethods.CMP_FreeMipSet(set);        
-
         Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
 
         VerifyResult? res = await VerifyFile(path);

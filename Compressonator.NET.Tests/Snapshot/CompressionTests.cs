@@ -36,8 +36,5 @@ public class CompressionTests : SnapshotTestingBase
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
-
-        FrameworkNativeMethods.CMP_FreeMipSet(mipSetIn);
     }
-
 }
