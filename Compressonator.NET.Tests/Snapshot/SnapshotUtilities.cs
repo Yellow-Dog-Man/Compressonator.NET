@@ -48,11 +48,11 @@ public static class SnapshotUtilities
 
     public static int UpdateMips(CMP_MipSet mipSetIn)
     {
-        var prevMipLevels = mipSetIn.mipLevels;
+        // Already has mips
         if (mipSetIn.mipLevels > 1)
             return 0;
         
-        const int requestLevel = 10;
+        const int requestLevel = 3;
 
         int nMinSize = FrameworkNativeMethods.CMP_CalcMinMipSize(mipSetIn.height, mipSetIn.width, requestLevel);
         return FrameworkNativeMethods.CMP_GenerateMIPLevels(mipSetIn, nMinSize);
