@@ -24,24 +24,24 @@ public static class SnapshotUtilities
     }
     public static string GetFileNameForTest(string extension = "dds")
     {
-        return Path.ChangeExtension(Path.GetRandomFileName(), extension);
+        return Path.Join("Out", Path.ChangeExtension(Path.GetRandomFileName(), extension));
     }
 
     public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds")
     {
         var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");  
 
         Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
 
         VerifyResult? res = await VerifyFile(path);
-        Assert.IsNotNull(res, "Verify result must be present");
-        Assert.IsNull(res.Target, "Verify result must not be error");
 
         File.Delete(path); //Clean-up
-
         Assert.IsFalse(File.Exists(path), $"Saved file must be cleaned up: {path}");
+
+        Assert.IsNotNull(res, "Verify result must be present");
+        Assert.IsNull(res.Target, "Verify result must not be error");
     }
 
     public static int UpdateMips(CMP_MipSet mipSetIn)
