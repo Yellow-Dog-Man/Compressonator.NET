@@ -11,7 +11,7 @@ public class Program
         FrameworkNativeMethods.CMP_InitFramework();
 
         var tests = new CompressionTests();
-        await tests.TestCompression(CMP_FORMAT.BC6H, "Resources/rainbow.png", 0.05f, 1);
+        await tests.TestCompression(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", 0.05f, 1);
 
         //CompressIcon();
     }
