@@ -86,9 +86,7 @@ namespace Compressonator.NET
         {
             if (!disposed)
             {
-                // Try not doing this, because it will be done incorrectly if SDK_Native is used.
-                //FrameworkNativeMethods.CMP_FreeMipSet(this);
-                
+                FrameworkNativeMethods.CMP_FreeMipSet(this);
                 disposed = true;
             }
         }
