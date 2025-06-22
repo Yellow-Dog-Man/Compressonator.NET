@@ -15,8 +15,11 @@ public static class SnapshotUtilities
     {
         var path = CurrentFile.Relative(relativePath);
         CMP_MipSet mipSetIn = new();
+
+        Assert.IsTrue(File.Exists(path), "Input file must exist!");
+
         var cmpStatus = FrameworkNativeMethods.CMP_LoadTexture(path, mipSetIn);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Load Must succeed");
 
         UpdateMips(mipSetIn);
 
