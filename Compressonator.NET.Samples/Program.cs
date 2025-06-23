@@ -7,9 +7,6 @@ public class Program
     {
         Console.WriteLine($"SDK Supported: " + SDK_NativeMethods.IsSupported);
         Console.WriteLine($"Framwork Supported: " + FrameworkNativeMethods.IsSupported);
-
-        FrameworkNativeMethods.CMP_InitFramework();
-
         var tests = new CompressionTests();
         await tests.TestCompression(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", 0.05f, 1);
 
@@ -18,6 +15,7 @@ public class Program
 
     private static void CompressIcon()
     {
+        FrameworkNativeMethods.CMP_InitFramework();
         string sourceFile = Path.GetFullPath("../../../../Images/icon.png");
         string targetFile = Path.GetFullPath("../../../../Images/icon.dds");
         Console.WriteLine($"Processing source file: {sourceFile}");
