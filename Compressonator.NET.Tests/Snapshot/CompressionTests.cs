@@ -59,7 +59,7 @@ public class CompressionTests : SnapshotTestingBase
             numThreads = (uint)maxThreads,
         };
 
-        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, options, IntPtr.Zero);
+        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, ref options, IntPtr.Zero);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Conversion process must succeed");
 
