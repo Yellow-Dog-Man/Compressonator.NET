@@ -17,9 +17,9 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U4)]
         public uint pitch;
 
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT format;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT transcodeFormat;
 
         [MarshalAs(UnmanagedType.U1)]

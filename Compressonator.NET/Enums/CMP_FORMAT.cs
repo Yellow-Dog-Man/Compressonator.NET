@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Compressonator.NET
 {
+    public static class CMP_Format_Extensions
+    {
+        public const UnmanagedType CMP_FORMAT_MARSHAL = UnmanagedType.U4;
+    }
     public enum CMP_FORMAT
     {
         Unknown = 0x0000,  // Undefined texture format.

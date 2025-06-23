@@ -125,9 +125,9 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U1)]
         public bool vertexFetch;
 
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT sourceFormat;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT destFormat;
         [MarshalAs(UnmanagedType.U1)]
         public bool format_support_hostEncoder;
