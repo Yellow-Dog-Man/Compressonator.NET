@@ -8,6 +8,9 @@ namespace Compressonator.NET
         public fixed byte cmdSet[Constants.ALL_CMD_SETS_SIZE];
     }
 
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
+
     [StructLayout(LayoutKind.Sequential)]
     public unsafe class CMP_CompressOptions
     {
@@ -129,8 +132,7 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U1)]
         public bool format_support_hostEncoder;
 
-        // Default to IntPtr.Zero to prevent linux segfaults in marshaling.
-        public IntPtr printInfoStr = IntPtr.Zero;
+        public CMP_PrintInfoStr printInfoStr;
 
         [MarshalAs(UnmanagedType.U1)]
         public bool getPerfStats;
