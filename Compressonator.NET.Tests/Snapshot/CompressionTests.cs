@@ -41,6 +41,9 @@ public class CompressionTests : SnapshotTestingBase
     {
         var expectedFormat = sourceFormat;
 
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(sourceFormat), "Source format must be supported by native library");
+
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, res, "Image must load");
@@ -81,6 +84,9 @@ public class CompressionTests : SnapshotTestingBase
     {
         var expectedFormat = sourceFormat;
 
+        Assert.IsTrue(FrameworkNativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
+        Assert.IsTrue(FrameworkNativeMethods.CMP_IsValidFormat(expectedFormat), "source format must be supported by native library");
+
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, res);
@@ -104,3 +110,4 @@ public class CompressionTests : SnapshotTestingBase
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
     }
 }
+
