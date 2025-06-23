@@ -63,7 +63,7 @@ namespace Compressonator.NET
         public byte alphaThreshold;
 
         [MarshalAs(UnmanagedType.U1)]
-        public bool disableMultiTHreading;
+        public bool disableMultiThreading;
 
         [MarshalAs(UnmanagedType.U4)]
         public CMP_Speed compressionSpeed;
