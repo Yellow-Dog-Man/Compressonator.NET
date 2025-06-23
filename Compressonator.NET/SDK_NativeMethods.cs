@@ -7,18 +7,18 @@ namespace Compressonator.NET
     {
         const string LIBRARY_NAME = "CMP_Compressonator";
 
-        [DllImport(LIBRARY_NAME)]
+        [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint CMP_CalculateBufferSize([In] CMP_Texture texture);
 
-        [DllImport(LIBRARY_NAME)]
+        [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern CMP_ERROR CMP_ConvertTexture([In][Out] CMP_Texture sourceTexture, [In][Out] CMP_Texture destTexture,
             ref CMP_CompressOptions options, IntPtr feedbackProc);
 
-        [DllImport(LIBRARY_NAME)]
+        [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern CMP_ERROR CMP_ConvertMipTexture([In][Out] CMP_MipSet mipSetIn, [In][Out] CMP_MipSet mipSetOut,
             ref CMP_CompressOptions options, IntPtr feedbackProc);
 
-        [DllImport(LIBRARY_NAME)]
+        [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern bool CMP_IsValidFormat([In]CMP_FORMAT format);
 
         public static bool IsSupported => _isSupported.Value;

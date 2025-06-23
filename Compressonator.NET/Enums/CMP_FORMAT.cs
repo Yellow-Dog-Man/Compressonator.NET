@@ -7,9 +7,9 @@ namespace Compressonator.NET
 {
     public static class CMP_Format_Extensions
     {
-        public const UnmanagedType CMP_FORMAT_MARSHAL = UnmanagedType.U4;
+        public const UnmanagedType CMP_FORMAT_MARSHAL = UnmanagedType.U2;
     }
-    public enum CMP_FORMAT
+    public enum CMP_FORMAT: ushort
     {
         Unknown = 0x0000,  // Undefined texture format.
 
