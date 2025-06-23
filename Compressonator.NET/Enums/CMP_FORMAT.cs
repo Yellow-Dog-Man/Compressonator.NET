@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
     public static class CMP_Format_Extensions
     {
-        public const UnmanagedType CMP_FORMAT_MARSHAL = UnmanagedType.U2;
+        public const UnmanagedType CMP_FORMAT_MARSHAL = UnmanagedType.U4;
     }
-    public enum CMP_FORMAT: ushort
+    public enum CMP_FORMAT: uint
     {
         Unknown = 0x0000,  // Undefined texture format.
 
