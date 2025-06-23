@@ -11,15 +11,14 @@ namespace Compressonator.NET
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
 
-    [StructLayout(LayoutKind.Sequential, Pack = 0)]
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public class CMP_CompressOptions
     {
         [MarshalAs(UnmanagedType.U4)]
-        public uint size;
+        public uint size = (uint) Marshal.SizeOf<CMP_CompressOptions>();
 
         // New to v4.5
         // Flags to control parameters in Brotli-G compression preconditioning
-
         [MarshalAs(UnmanagedType.U1)]
         public bool doPreconditionBRLG;
         [MarshalAs(UnmanagedType.U1)]
@@ -149,14 +148,46 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.I4)]
         public int miplevels;
 
-        public CMP_CompressOptions()
+        //TODO: When we can drop, earlier .Nets we can look into:
+        //https://learn.microsoft.com/en-us/dotnet/standard/native-interop/custom-marshalling-source-generation
+        private IntPtr unmanagedPtr = IntPtr.Zero;
+        internal IntPtr UnmanagedCopy
         {
-            Init();
+            get
+            {
+                bool hasData = false;
+                if (unmanagedPtr == IntPtr.Zero)
+                    unmanagedPtr = Marshal.AllocHGlobal((int)size);
+                else
+                    hasData = true;
+
+                Marshal.StructureToPtr(this, unmanagedPtr, hasData);
+
+                return unmanagedPtr;
+            }
         }
 
-        private void Init()
+        public void Dispose()
         {
-            size = (uint)Marshal.SizeOf<CMP_CompressOptions>();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (unmanagedPtr != IntPtr.Zero)
+                    Marshal.FreeHGlobal(unmanagedPtr);
+                disposed = true;
+            }
+        }
+
+        ~CMP_CompressOptions()
+        {
+            Dispose(false);
         }
     }
 }
