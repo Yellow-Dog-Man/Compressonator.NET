@@ -18,6 +18,9 @@ namespace Compressonator.NET
         public static extern CMP_ERROR CMP_ConvertMipTexture([In][Out] CMP_MipSet mipSetIn, [In][Out] CMP_MipSet mipSetOut,
             [In] CMP_CompressOptions options, IntPtr feedbackProc);
 
+        [DllImport(LIBRARY_NAME)]
+        public static extern bool CMP_IsValidFormat([In]CMP_FORMAT format);
+
         public static bool IsSupported => _isSupported.Value;
 
         static readonly Lazy<bool> _isSupported = new Lazy<bool>(() =>
