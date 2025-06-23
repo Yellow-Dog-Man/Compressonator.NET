@@ -43,8 +43,8 @@ public class CompressionTests : SnapshotTestingBase
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
 
-        Assert.AreEqual(CMP_ERROR.CMP_OK, res);
-        Assert.AreEqual(expectedFormat, mipSetIn.format);
+        Assert.AreEqual(CMP_ERROR.CMP_OK, res, "Image must load");
+        Assert.AreEqual(expectedFormat, mipSetIn.format, "Image format must match expectations");
 
         CMP_MipSet mipSetOut = new();
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
@@ -58,7 +58,7 @@ public class CompressionTests : SnapshotTestingBase
 
         cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, options, IntPtr.Zero);
 
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Conversion process must succeed");
 
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
     }
