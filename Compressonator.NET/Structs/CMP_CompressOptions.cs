@@ -3,15 +3,20 @@ using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
-    public unsafe struct AMD_CMDS
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+    public struct AMD_CMD
     {
-        public fixed byte cmdSet[Constants.ALL_CMD_SETS_SIZE];
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+        public string strCommand;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+        public string strParameter;
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
 
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class CMP_CompressOptions
     {
         [MarshalAs(UnmanagedType.U4)]
@@ -86,8 +91,8 @@ namespace Compressonator.NET
 
         [MarshalAs(UnmanagedType.I4)]
         public int numCmds;
-        [MarshalAs(UnmanagedType.Struct)]
-        public AMD_CMDS cmdSet;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
+        public AMD_CMD[] cmdSet;
 
         [MarshalAs(UnmanagedType.R4)]
         public float inputDefog;
