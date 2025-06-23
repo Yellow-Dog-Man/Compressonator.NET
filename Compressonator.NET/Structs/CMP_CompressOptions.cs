@@ -129,7 +129,8 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U1)]
         public bool format_support_hostEncoder;
 
-        public IntPtr printInfoStr;
+        // Default to IntPtr.Zero to prevent linux segfaults in marshaling.
+        public IntPtr printInfoStr = IntPtr.Zero;
 
         [MarshalAs(UnmanagedType.U1)]
         public bool getPerfStats;
