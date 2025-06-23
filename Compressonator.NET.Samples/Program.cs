@@ -49,7 +49,7 @@ public class Program
             DXT1UseAlpha = true,
             alphaThreshold = 127
         };
-        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetCmp, ref compressOptions, IntPtr.Zero);
+        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetCmp, compressOptions);
         if (cmpStatus != CMP_ERROR.CMP_OK)
         {
             Console.WriteLine($"Error {cmpStatus}: Processing texture!");

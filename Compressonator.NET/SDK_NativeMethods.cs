@@ -11,12 +11,22 @@ namespace Compressonator.NET
         public static extern uint CMP_CalculateBufferSize([In] CMP_Texture texture);
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern CMP_ERROR CMP_ConvertTexture([In][Out] CMP_Texture sourceTexture, [In][Out] CMP_Texture destTexture,
-            ref CMP_CompressOptions options, IntPtr feedbackProc);
+        private static extern CMP_ERROR CMP_ConvertTexture([In][Out] CMP_Texture sourceTexture, [In][Out] CMP_Texture destTexture,
+            [In] IntPtr options, IntPtr feedbackProc);
+
+        public static CMP_ERROR CMP_ConvertTexture(CMP_Texture sourceTexture, CMP_Texture destTexture, CMP_CompressOptions options)
+        {
+            return CMP_ConvertTexture(sourceTexture, destTexture, options.UnmanagedCopy, IntPtr.Zero);
+        }
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
-        public static extern CMP_ERROR CMP_ConvertMipTexture([In][Out] CMP_MipSet mipSetIn, [In][Out] CMP_MipSet mipSetOut,
-            ref CMP_CompressOptions options, IntPtr feedbackProc);
+        private static extern CMP_ERROR CMP_ConvertMipTexture([In][Out] CMP_MipSet mipSetIn, [In][Out] CMP_MipSet mipSetOut,
+             	[In] IntPtr options, IntPtr feedbackProc);
+
+        public static CMP_ERROR CMP_ConvertMipTexture(CMP_MipSet mipSetIn, CMP_MipSet mipSetOut, CMP_CompressOptions options)
+        {
+            return CMP_ConvertMipTexture(mipSetIn, mipSetOut, options.UnmanagedCopy, IntPtr.Zero);
+        }
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern bool CMP_IsValidFormat([In]CMP_FORMAT format);

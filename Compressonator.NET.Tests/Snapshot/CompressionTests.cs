@@ -1,4 +1,5 @@
-﻿namespace Compressonator.NET.Tests.Snapshot;
+﻿
+namespace Compressonator.NET.Tests.Snapshot;
 
 [TestClass]
 public class CompressionTests : SnapshotTestingBase
@@ -56,10 +57,10 @@ public class CompressionTests : SnapshotTestingBase
             destFormat = targetFormat,
             sourceFormat = sourceFormat,
             quality = quality,
-            numThreads = (uint)maxThreads,
+            numThreads = (uint)maxThreads
         };
 
-        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, ref options, IntPtr.Zero);
+        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, options);
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Conversion process must succeed");
 
