@@ -12,7 +12,7 @@ namespace Compressonator.NET
     public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
 
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe class CMP_CompressOptions
+    public struct CMP_CompressOptions
     {
         [MarshalAs(UnmanagedType.U4)]
         public uint size;
@@ -148,15 +148,5 @@ namespace Compressonator.NET
         public bool useSRGBFrames;
         [MarshalAs(UnmanagedType.I4)]
         public int miplevels;
-
-        public CMP_CompressOptions()
-        {
-            Init();
-        }
-
-        void Init()
-        {
-            size = (uint)Marshal.SizeOf<CMP_CompressOptions>();
-        }
     }
 }
