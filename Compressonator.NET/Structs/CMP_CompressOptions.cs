@@ -11,7 +11,7 @@ namespace Compressonator.NET
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
 
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    [StructLayout(LayoutKind.Sequential)]
     public class CMP_CompressOptions
     {
         [MarshalAs(UnmanagedType.U4)]
