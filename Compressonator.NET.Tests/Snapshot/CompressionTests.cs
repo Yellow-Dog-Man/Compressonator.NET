@@ -44,7 +44,7 @@ public class CompressionTests : SnapshotTestingBase
     {
         VerifySettings settings = new VerifySettings();
 
-        if (targetFormat == CMP_FORMAT.BC7 || targetFormat == CMP_FORMAT.BC6H)
+        if (ShouldUniqueForOperatingSystem(targetFormat))
         {
             if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
                 Assert.Inconclusive($"BC6H and BC7 Tests, at a higher quality than {DEFAULT_BC67COMPRESSION_QUALITY} are disabled by default due to how long they take.");
@@ -82,10 +82,8 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-
-    // BC 6H and BC7 are blocked in CMP_ProcessTexture due to: https://github.com/Yellow-Dog-Man/compressonator/issues/10
-    // [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    // [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataTestMethod]
     public async Task TestProcessTexture(CMP_FORMAT targetFormat,
         CMP_FORMAT sourceFormat,
@@ -93,6 +91,20 @@ public class CompressionTests : SnapshotTestingBase
         float quality = 0.9f,
         uint maxThreads = 0)
     {
+        VerifySettings settings = new VerifySettings();
+        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
+        if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
+            settings.UniqueForOSPlatform();
+
+        if (ShouldUniqueForOperatingSystem(targetFormat))
+        {
+            settings.UniqueForOSPlatform();
+            // See: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/17
+            // See; https://github.com/Yellow-Dog-Man/compressonator/issues/10
+            Assert.Inconclusive("BC6H & BC67 Tests are disabled for this test.");
+        }
+            
+
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
         CMP_MipSet mipSetOut = new();
@@ -111,6 +123,18 @@ public class CompressionTests : SnapshotTestingBase
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
+    }
+
+    public bool ShouldUniqueForOperatingSystem(CMP_FORMAT format)
+    {
+        switch(format)
+        {
+            case CMP_FORMAT.BC7:
+            case CMP_FORMAT.BC6H:
+                return true;
+            default:
+                return false;
+        }
     }
 }
 
