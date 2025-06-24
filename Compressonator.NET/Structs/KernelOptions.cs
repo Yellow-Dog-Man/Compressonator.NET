@@ -14,9 +14,9 @@ namespace Compressonator.NET
         public uint width;
         [MarshalAs(UnmanagedType.R4)]
         public float quality;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT format;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT srcformat;
         [MarshalAs(UnmanagedType.U4)]
         public CMP_ComputeType encodeWith;

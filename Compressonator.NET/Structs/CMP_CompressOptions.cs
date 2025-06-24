@@ -1,24 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
-    public unsafe struct AMD_CMDS
+    [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
+    public struct AMD_CMD
     {
-        public fixed byte cmdSet[Constants.ALL_CMD_SETS_SIZE];
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+        public string strCommand;
+
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+        public string strParameter;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
-    public unsafe class CMP_CompressOptions
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void CMP_PrintInfoStr([MarshalAs(UnmanagedType.LPStr)] string infoStr);
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public class CMP_CompressOptions
     {
         [MarshalAs(UnmanagedType.U4)]
-        public uint size;
+        public uint size = (uint) Marshal.SizeOf<CMP_CompressOptions>();
 
         // New to v4.5
         // Flags to control parameters in Brotli-G compression preconditioning
-
         [MarshalAs(UnmanagedType.U1)]
         public bool doPreconditionBRLG;
         [MarshalAs(UnmanagedType.U1)]
@@ -62,7 +67,7 @@ namespace Compressonator.NET
         public byte alphaThreshold;
 
         [MarshalAs(UnmanagedType.U1)]
-        public bool disableMultiTHreading;
+        public bool disableMultiThreading;
 
         [MarshalAs(UnmanagedType.U4)]
         public CMP_Speed compressionSpeed;
@@ -86,8 +91,8 @@ namespace Compressonator.NET
 
         [MarshalAs(UnmanagedType.I4)]
         public int numCmds;
-        [MarshalAs(UnmanagedType.Struct)]
-        public AMD_CMDS cmdSet;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
+        public AMD_CMD[] cmdSet;
 
         [MarshalAs(UnmanagedType.R4)]
         public float inputDefog;
@@ -124,14 +129,14 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U1)]
         public bool vertexFetch;
 
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT sourceFormat;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT destFormat;
         [MarshalAs(UnmanagedType.U1)]
         public bool format_support_hostEncoder;
 
-        public IntPtr printInfoStr;
+        public CMP_PrintInfoStr printInfoStr;
 
         [MarshalAs(UnmanagedType.U1)]
         public bool getPerfStats;
@@ -148,14 +153,46 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.I4)]
         public int miplevels;
 
-        public CMP_CompressOptions()
+        //TODO: When we can drop, earlier .Nets we can look into:
+        //https://learn.microsoft.com/en-us/dotnet/standard/native-interop/custom-marshalling-source-generation
+        private IntPtr unmanagedPtr = IntPtr.Zero;
+        internal IntPtr UnmanagedCopy
         {
-            Init();
+            get
+            {
+                bool hasData = false;
+                if (unmanagedPtr == IntPtr.Zero)
+                    unmanagedPtr = Marshal.AllocHGlobal((int)size);
+                else
+                    hasData = true;
+
+                Marshal.StructureToPtr(this, unmanagedPtr, hasData);
+
+                return unmanagedPtr;
+            }
         }
 
-        void Init()
+        public void Dispose()
         {
-            size = (uint)Marshal.SizeOf<CMP_CompressOptions>();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (unmanagedPtr != IntPtr.Zero)
+                    Marshal.FreeHGlobal(unmanagedPtr);
+                disposed = true;
+            }
+        }
+
+        ~CMP_CompressOptions()
+        {
+            Dispose(false);
         }
     }
 }

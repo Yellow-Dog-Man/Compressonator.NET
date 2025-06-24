@@ -3,7 +3,7 @@
 namespace Compressonator.NET
 {
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-    public unsafe struct KernelDeviceInfo
+    public struct KernelDeviceInfo
     {
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
         public string deviceName;

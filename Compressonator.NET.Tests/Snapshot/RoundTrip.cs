@@ -7,7 +7,7 @@ public class RoundTrip : SnapshotTestingBase
     public async Task BasicRoundTrip()
     {
         string sourceFile = "Resources/rainbow.png";
-        var (res,set) = SnapshotUtilities.Load(sourceFile);
+        var (res,set) = SnapshotUtilities.Load(sourceFile, CompressionTests.DEFAULT_SOURCE_FORMAT, CompressionTests.DEFAULT_SOURCE_FORMAT);
 
         Assert.AreEqual(CMP_FORMAT.RGBA_8888, set.format);
 

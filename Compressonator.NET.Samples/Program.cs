@@ -1,14 +1,21 @@
 ﻿using Compressonator.NET;
+using Compressonator.NET.Tests.Snapshot;
 
 public class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         Console.WriteLine($"SDK Supported: " + SDK_NativeMethods.IsSupported);
         Console.WriteLine($"Framwork Supported: " + FrameworkNativeMethods.IsSupported);
+        var tests = new CompressionTests();
+        await tests.TestCompression(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", 0.05f, 1);
 
+        //CompressIcon();
+    }
+
+    private static void CompressIcon()
+    {
         FrameworkNativeMethods.CMP_InitFramework();
-
         string sourceFile = Path.GetFullPath("../../../../Images/icon.png");
         string targetFile = Path.GetFullPath("../../../../Images/icon.dds");
         Console.WriteLine($"Processing source file: {sourceFile}");
@@ -42,7 +49,7 @@ public class Program
             DXT1UseAlpha = true,
             alphaThreshold = 127
         };
-        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetCmp, compressOptions, IntPtr.Zero);
+        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetCmp, compressOptions);
         if (cmpStatus != CMP_ERROR.CMP_OK)
         {
             Console.WriteLine($"Error {cmpStatus}: Processing texture!");

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Compressonator.NET
 {
-    public enum CMP_GPUDecode
+    public enum CMP_GPUDecode: uint
     {
         GPUDecode_OPENGL = 0,  ///< Use OpenGL   to decode Textures (default)
         GPUDecode_DIRECTX,     ///< Use DirectX  to decode Textures

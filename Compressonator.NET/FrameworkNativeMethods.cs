@@ -35,6 +35,9 @@ namespace Compressonator.NET
         public static extern CMP_FORMAT CMP_ParseFormat(string format);
 
         [DllImport(LIBRARY_NAME)]
+        public static extern bool CMP_IsValidFormat([In] CMP_FORMAT format);
+
+        [DllImport(LIBRARY_NAME)]
         public static extern int CMP_NumberOfProcessors();
 
         [DllImport(LIBRARY_NAME)]

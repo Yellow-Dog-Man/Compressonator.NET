@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Compressonator.NET.Tests\Compressonator.NET.Tests.csproj" />
     <ProjectReference Include="..\Compressonator.NET\Compressonator.NET.csproj" />
   </ItemGroup>
 

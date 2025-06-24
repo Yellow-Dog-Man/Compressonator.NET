@@ -14,7 +14,7 @@ namespace Compressonator.NET
         public int height;
         [MarshalAs(UnmanagedType.I4)]
         public int depth;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT format;
 
         [MarshalAs(UnmanagedType.U4)]
@@ -36,11 +36,11 @@ namespace Compressonator.NET
         public int maxMipLevels;
         [MarshalAs(UnmanagedType.I4)]
         public int mipLevels;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT transcodeFormat;
         [MarshalAs(UnmanagedType.U1)]
         public bool compressed;
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs(CMP_Format_Extensions.CMP_FORMAT_MARSHAL)]
         public CMP_FORMAT isDecompressed;
         [MarshalAs(UnmanagedType.U1)]
         public bool swizzled;

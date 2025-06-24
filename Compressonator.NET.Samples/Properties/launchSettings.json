@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Compressonator.NET.Samples": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
