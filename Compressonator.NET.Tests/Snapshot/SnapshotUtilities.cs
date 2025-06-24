@@ -11,8 +11,11 @@ public static class SnapshotUtilities
     /// </summary>
     /// <param name="relativePath"></param>
     /// <returns></returns>
-    public static (CMP_ERROR, CMP_MipSet) Load(string relativePath)
+    public static (CMP_ERROR, CMP_MipSet) Load(string relativePath, CMP_FORMAT targetFormat, CMP_FORMAT sourceFormat)
     {
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(sourceFormat), "Source format must be supported by native library");
+
         var path = CurrentFile.Relative(relativePath);
         CMP_MipSet mipSetIn = new();
 
@@ -23,6 +26,8 @@ public static class SnapshotUtilities
 
         UpdateMips(mipSetIn);
 
+        Assert.AreEqual(sourceFormat, mipSetIn.format, "Image format must match expectations");
+
         return (cmpStatus, mipSetIn);
     }
     public static string GetFileNameForTest(string extension = "dds")
@@ -30,7 +35,7 @@ public static class SnapshotUtilities
         return Path.Join("Out", Path.ChangeExtension(Path.GetRandomFileName(), extension));
     }
 
-    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds")
+    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds", VerifySettings? settings = null)
     {
         var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
@@ -38,7 +43,12 @@ public static class SnapshotUtilities
 
         Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
 
-        VerifyResult? res = await VerifyFile(path);
+        VerifyResult? res;
+
+        if (settings != null)
+            res = await VerifyFile(path, settings);
+        else
+            res = await VerifyFile(path);
 
         File.Delete(path); //Clean-up
         Assert.IsFalse(File.Exists(path), $"Saved file must be cleaned up: {path}");

@@ -4,34 +4,36 @@ namespace Compressonator.NET.Tests.Snapshot;
 [TestClass]
 public class CompressionTests : SnapshotTestingBase
 {
-    public const float DEFAULT_BC67COMPRESSION = 0.05f;
-    public const float RESONITE_BC67COMPRESSION = 0.6f;
+    public const CMP_FORMAT DEFAULT_SOURCE_FORMAT = CMP_FORMAT.RGBA_8888;
 
-    [DataRow(CMP_FORMAT.BC1, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC2, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC3, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC4, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC5, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
+    public const float DEFAULT_BC67COMPRESSION_QUALITY = 0.05f;
+    public const float RESONITE_BC67COMPRESSION_QUALITY = 0.6f;
+
+    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
 
     // BC6H at default quality
-    [DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION)]
-    [DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/squares.png", DEFAULT_BC67COMPRESSION)]
-    [DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
 
     // BC6H at the quality Resonite used to use - These are generated but disabled by default, because they take double the time as 0.05f
-    //[DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png", RESONITE_BC67COMPRESSION)]
-    //[DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/squares.png", RESONITE_BC67COMPRESSION)]
-    //[DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
 
     // BC7 at default quality
-    [DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION)]
-    [DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/squares.png", DEFAULT_BC67COMPRESSION)]
-    [DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION_QUALITY)]
 
     // BC7 at the quality Resonite used to use, disabled, these took > 10 minutes
-    //[DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION)]
-    //[DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/squares.jpg", RESONITE_BC67COMPRESSION)]
-    //[DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png", RESONITE_BC67COMPRESSION)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataTestMethod]
     public async Task TestCompression(
         CMP_FORMAT targetFormat,
@@ -40,15 +42,23 @@ public class CompressionTests : SnapshotTestingBase
         float quality = 0.9f,
         int maxThreads = 0)
     {
-        var expectedFormat = sourceFormat;
+        VerifySettings settings = new VerifySettings();
 
-        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
-        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(sourceFormat), "Source format must be supported by native library");
+        if (targetFormat == CMP_FORMAT.BC7 || targetFormat == CMP_FORMAT.BC6H)
+        {
+            if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
+                Assert.Inconclusive($"BC6H and BC7 Tests, at a higher quality than {DEFAULT_BC67COMPRESSION_QUALITY} are disabled by default due to how long they take.");
 
-        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
+            // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
+            settings.UniqueForOSPlatform();
+        }
 
-        Assert.AreEqual(CMP_ERROR.CMP_OK, res, "Image must load");
-        Assert.AreEqual(expectedFormat, mipSetIn.format, "Image format must match expectations");
+        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
+        if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
+            settings.UniqueForOSPlatform();
+
+
+        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
         CMP_MipSet mipSetOut = new();
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
@@ -64,18 +74,18 @@ public class CompressionTests : SnapshotTestingBase
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Conversion process must succeed");
 
-        await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
+        await SnapshotUtilities.SaveVerifyDelete(mipSetOut,settings:settings);
     }
 
-    [DataRow(CMP_FORMAT.BC1, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC2, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC3, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC4, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC5, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
 
     // BC 6H and BC7 are blocked in CMP_ProcessTexture due to: https://github.com/Yellow-Dog-Man/compressonator/issues/10
-    // [DataRow(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
-    // [DataRow(CMP_FORMAT.BC7, CMP_FORMAT.RGBA_8888, "Resources/rainbow.png")]
+    // [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    // [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataTestMethod]
     public async Task TestProcessTexture(CMP_FORMAT targetFormat,
         CMP_FORMAT sourceFormat,
@@ -83,15 +93,7 @@ public class CompressionTests : SnapshotTestingBase
         float quality = 0.9f,
         uint maxThreads = 0)
     {
-        var expectedFormat = sourceFormat;
-
-        Assert.IsTrue(FrameworkNativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
-        Assert.IsTrue(FrameworkNativeMethods.CMP_IsValidFormat(expectedFormat), "source format must be supported by native library");
-
-        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
-
-        Assert.AreEqual(CMP_ERROR.CMP_OK, res);
-        Assert.AreEqual(expectedFormat, mipSetIn.format);
+        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
         CMP_MipSet mipSetOut = new();
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
