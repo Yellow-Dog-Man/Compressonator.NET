@@ -122,7 +122,7 @@ public class CompressionTests : SnapshotTestingBase
 
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
 
-        await SnapshotUtilities.SaveVerifyDelete(mipSetOut);
+        await SnapshotUtilities.SaveVerifyDelete(mipSetOut, settings: settings);
     }
 
     public bool ShouldUniqueForOperatingSystem(CMP_FORMAT format)
