@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Compressonator.NET
 {
-    public enum CMP_ComputeType
+    public enum CMP_ComputeType: uint
     {
         CMP_UNKNOWN = 0,
         CMP_CPU = 1,   //Use CPU Only, encoders defined CMP_CPUEncode or Compressonator lib will be used
