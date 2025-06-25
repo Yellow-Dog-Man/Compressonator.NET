@@ -91,7 +91,7 @@ namespace Compressonator.NET
         public uint modeMask;
 
         [MarshalAs(UnmanagedType.I4)]
-        public int numCmds = Constants.AMD_MAX_CMDS;
+        public int numCmds = 0; // Should always be 0, unless actually being used.
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = Constants.AMD_MAX_CMDS)]
         public AMD_CMD[] cmdSet;
 
