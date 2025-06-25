@@ -12,5 +12,5 @@ Renamed to keep snapshot file lengths smaller.
 - Shanghai.jpg - https://www.pexels.com/photo/shanghai-china-cityscape-302820/ listed as CC0
 
 # these ones are taken by Redd
-- small_flower_patch.png - cc0
-- firefighting_helicotper.png - cc0
+- flowers.png - cc0
+- helicotper.png - cc0
