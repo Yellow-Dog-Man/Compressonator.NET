@@ -13,7 +13,9 @@ public class MarshalTests
     [TestMethod]
     public void TestCMP_CompressOptions()
     {
-        Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, Marshal.SizeOf<CMP_CompressOptions>(), "CMP_CompressOptions");
+        var options = new CMP_CompressOptions();
+        Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, Marshal.SizeOf<CMP_CompressOptions>(), "CMP_CompressOptions should have the correct size");
+        Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, (int)options.size, "CMP_CompressOptions's size should be auto-set on construct");
     }
 
     [TestMethod]
