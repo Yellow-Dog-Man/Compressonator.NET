@@ -8,7 +8,7 @@ public class Program
         Console.WriteLine($"SDK Supported: " + SDK_NativeMethods.IsSupported);
         Console.WriteLine($"Framwork Supported: " + FrameworkNativeMethods.IsSupported);
         var tests = new CompressionTests();
-        await tests.TestCompression(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", 0.05f, 1);
+        await tests.TestCompression(CMP_FORMAT.BC6H, CMP_FORMAT.RGBA_8888, "Resources/shanghai.jpg", 0.6f, 1);
 
         //CompressIcon();
     }

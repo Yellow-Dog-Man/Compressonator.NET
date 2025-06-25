@@ -1,0 +1,259 @@
+﻿{
+  TotalSize: 1511,
+  Fields: [
+    {
+      FieldName: size,
+      ByteSize: 4
+    },
+    {
+      FieldName: doPreconditionBRLG,
+      ByteSize: 1
+    },
+    {
+      FieldName: doDeltaEncodeBRLG,
+      ByteSize: 1
+    },
+    {
+      FieldName: doSwizzleBRLG,
+      ByteSize: 1
+    },
+    {
+      FieldName: pageSize,
+      ByteSize: 4
+    },
+    {
+      FieldName: useRefinementSteps,
+      ByteSize: 1
+    },
+    {
+      FieldName: refinementSteps,
+      ByteSize: 4
+    },
+    {
+      FieldName: useChannelWeighting,
+      ByteSize: 1
+    },
+    {
+      FieldName: weightingRed,
+      ByteSize: 4
+    },
+    {
+      FieldName: weightingGreen,
+      ByteSize: 4
+    },
+    {
+      FieldName: weightingBlue,
+      ByteSize: 4
+    },
+    {
+      FieldName: useAdaptiveWeighting,
+      ByteSize: 1
+    },
+    {
+      FieldName: DXT1UseAlpha,
+      ByteSize: 1
+    },
+    {
+      FieldName: useGPUDecompress,
+      ByteSize: 1
+    },
+    {
+      FieldName: useCGCompress,
+      ByteSize: 1
+    },
+    {
+      FieldName: alphaThreshold,
+      ByteSize: 1
+    },
+    {
+      FieldName: disableMultiThreading,
+      ByteSize: 1
+    },
+    {
+      FieldName: compressionSpeed,
+      ByteSize: 4
+    },
+    {
+      FieldName: GPUDecode,
+      ByteSize: 4
+    },
+    {
+      FieldName: encodeWidth,
+      ByteSize: 4
+    },
+    {
+      FieldName: numThreads,
+      ByteSize: 4
+    },
+    {
+      FieldName: quality,
+      ByteSize: 4
+    },
+    {
+      FieldName: restrictColour,
+      ByteSize: 1
+    },
+    {
+      FieldName: restrictAlpha,
+      ByteSize: 1
+    },
+    {
+      FieldName: modeMask,
+      ByteSize: 4
+    },
+    {
+      FieldName: numCmds,
+      ByteSize: 4
+    },
+    {
+      FieldName: cmdSet,
+      ByteSize: 960
+    },
+    {
+      FieldName: inputDefog,
+      ByteSize: 4
+    },
+    {
+      FieldName: inputExposure,
+      ByteSize: 4
+    },
+    {
+      FieldName: inputKneeLow,
+      ByteSize: 4
+    },
+    {
+      FieldName: inputKneeHigh,
+      ByteSize: 4
+    },
+    {
+      FieldName: inputGamma,
+      ByteSize: 4
+    },
+    {
+      FieldName: inputFilterGamma,
+      ByteSize: 4
+    },
+    {
+      FieldName: cmpLevel,
+      ByteSize: 4
+    },
+    {
+      FieldName: posBits,
+      ByteSize: 4
+    },
+    {
+      FieldName: texCbits,
+      ByteSize: 4
+    },
+    {
+      FieldName: normalBits,
+      ByteSize: 4
+    },
+    {
+      FieldName: genericBits,
+      ByteSize: 4
+    },
+    {
+      FieldName: vCacheSize,
+      ByteSize: 4
+    },
+    {
+      FieldName: vCacheFIFOsize,
+      ByteSize: 4
+    },
+    {
+      FieldName: overdrawACMR,
+      ByteSize: 4
+    },
+    {
+      FieldName: simplifyLOD,
+      ByteSize: 4
+    },
+    {
+      FieldName: vertexFetch,
+      ByteSize: 1
+    },
+    {
+      FieldName: sourceFormat,
+      ByteSize: 4
+    },
+    {
+      FieldName: destFormat,
+      ByteSize: 4
+    },
+    {
+      FieldName: format_support_hostEncoder,
+      ByteSize: 1
+    },
+    {
+      FieldName: printInfoStr,
+      ByteSize: 8
+    },
+    {
+      FieldName: getPerfStats,
+      ByteSize: 1
+    },
+    {
+      FieldName: getDeviceInfo,
+      ByteSize: 1
+    },
+    {
+      FieldName: genGPUMipMaps,
+      ByteSize: 1
+    },
+    {
+      FieldName: useSRGBFrames,
+      ByteSize: 1
+    },
+    {
+      FieldName: miplevels,
+      ByteSize: 4
+    }
+  ],
+  NestedRecords: [
+    {
+      TotalSize: 12,
+      Fields: [
+        {
+          FieldName: computeShaderElapsedMS,
+          ByteSize: 4
+        },
+        {
+          FieldName: numBlocks,
+          ByteSize: 4
+        },
+        {
+          FieldName: cmpMTxPerSec,
+          ByteSize: 4
+        }
+      ],
+      NestedRecords: [],
+      FieldSize: 12,
+      FieldCount: 3
+    },
+    {
+      TotalSize: 388,
+      Fields: [
+        {
+          FieldName: deviceName,
+          ByteSize: 256
+        },
+        {
+          FieldName: version,
+          ByteSize: 128
+        },
+        {
+          FieldName: maxUCores,
+          ByteSize: 4
+        }
+      ],
+      NestedRecords: [],
+      FieldSize: 388,
+      FieldCount: 3
+    }
+  ],
+  FieldSize: 1111,
+  NestedSize: 400,
+  FieldCount: 52,
+  NestedCount: 2
+}
