@@ -73,6 +73,9 @@ public class CompressionTests : SnapshotTestingBase
 
         if (ShouldUniqueForOperatingSystem(targetFormat))
         {
+            if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
+                Assert.Inconclusive($"BC6H & BC7 Tests at higher qualities than {DEFAULT_BC67COMPRESSION_QUALITY} due to how long they take.");
+
             // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
             settings.UniqueForOSPlatform();
         }
@@ -80,7 +83,6 @@ public class CompressionTests : SnapshotTestingBase
         // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
         if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
             settings.UniqueForOSPlatform();
-
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 

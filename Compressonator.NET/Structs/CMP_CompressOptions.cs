@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Compressonator.NET
 {
+    
     [StructLayout(LayoutKind.Sequential, Pack = 1, CharSet = CharSet.Ansi)]
     public struct AMD_CMD
     {
@@ -90,8 +91,8 @@ namespace Compressonator.NET
         public uint modeMask;
 
         [MarshalAs(UnmanagedType.I4)]
-        public int numCmds;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 20)]
+        public int numCmds = Constants.AMD_MAX_CMDS;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = Constants.AMD_MAX_CMDS)]
         public AMD_CMD[] cmdSet;
 
         [MarshalAs(UnmanagedType.R4)]
@@ -136,7 +137,16 @@ namespace Compressonator.NET
         [MarshalAs(UnmanagedType.U1)]
         public bool format_support_hostEncoder;
 
-        public CMP_PrintInfoStr printInfoStr;
+        /// <summary>
+        /// We're currently unable to marshal this correctly. See this
+        /// <see href="https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/18">GitHub Issue</see>
+        /// but it must be <see cref="Constants.PRINT_INFO_SIZE"/> in length.
+        /// We do also have a WIP structure to marshal this: <seealso cref="CMP_PrintInfoStr"/>
+        /// </summary>
+        //public CMP_PrintInfoStr printInfoStr;
+        [Obsolete("DO NOT USE see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/18")]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = Constants.PRINT_INFO_SIZE)]
+        public string printInfoStr;
 
         [MarshalAs(UnmanagedType.U1)]
         public bool getPerfStats;
@@ -152,47 +162,5 @@ namespace Compressonator.NET
         public bool useSRGBFrames;
         [MarshalAs(UnmanagedType.I4)]
         public int miplevels;
-
-        //TODO: When we can drop, earlier .Nets we can look into:
-        //https://learn.microsoft.com/en-us/dotnet/standard/native-interop/custom-marshalling-source-generation
-        private IntPtr unmanagedPtr = IntPtr.Zero;
-        internal IntPtr UnmanagedCopy
-        {
-            get
-            {
-                bool hasData = false;
-                if (unmanagedPtr == IntPtr.Zero)
-                    unmanagedPtr = Marshal.AllocHGlobal((int)size);
-                else
-                    hasData = true;
-
-                Marshal.StructureToPtr(this, unmanagedPtr, hasData);
-
-                return unmanagedPtr;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (unmanagedPtr != IntPtr.Zero)
-                    Marshal.FreeHGlobal(unmanagedPtr);
-                disposed = true;
-            }
-        }
-
-        ~CMP_CompressOptions()
-        {
-            Dispose(false);
-        }
     }
 }

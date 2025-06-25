@@ -1,0 +1,20 @@
+﻿{
+  TotalSize: 12,
+  Fields: [
+    {
+      FieldName: computeShaderElapsedMS,
+      ByteSize: 4
+    },
+    {
+      FieldName: numBlocks,
+      ByteSize: 4
+    },
+    {
+      FieldName: cmpMTxPerSec,
+      ByteSize: 4
+    }
+  ],
+  NestedRecords: [],
+  FieldSize: 12,
+  FieldCount: 3
+}
