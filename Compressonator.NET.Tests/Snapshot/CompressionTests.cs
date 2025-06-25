@@ -68,7 +68,6 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", RESONITE_BC67COMPRESSION_QUALITY)]
 
-
     [DataTestMethod]
     public async Task TestCompression(
         CMP_FORMAT targetFormat,
