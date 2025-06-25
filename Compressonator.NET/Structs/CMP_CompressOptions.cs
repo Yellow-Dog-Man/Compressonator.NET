@@ -67,19 +67,19 @@ namespace Compressonator.NET
         public byte alphaThreshold;
 
         [MarshalAs(UnmanagedType.U1)]
-        public bool disableMultiThreading;
+        public bool disableMultiThreading = false;
 
         [MarshalAs(UnmanagedType.U4)]
         public CMP_Speed compressionSpeed;
         [MarshalAs(UnmanagedType.U4)]
         public CMP_GPUDecode GPUDecode;
         [MarshalAs(UnmanagedType.U4)]
-        public CMP_ComputeType encodeWidth;
+        public CMP_ComputeType encodeWidth = CMP_ComputeType.CMP_HPC;
         [MarshalAs(UnmanagedType.U4)]
-        public uint numThreads;
+        public uint numThreads = 0;
 
         [MarshalAs(UnmanagedType.R4)]
-        public float quality;
+        public float quality = 1.0f;
 
         [MarshalAs(UnmanagedType.U1)]
         public bool restrictColour;
