@@ -9,6 +9,8 @@ namespace Compressonator.NET
         public string deviceName;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
         public string version;
+
+        [MarshalAs(UnmanagedType.U4)]
         public int maxUCores;
     }
 }

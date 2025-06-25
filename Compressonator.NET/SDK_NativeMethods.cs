@@ -16,7 +16,8 @@ namespace Compressonator.NET
 
         public static CMP_ERROR CMP_ConvertTexture(CMP_Texture sourceTexture, CMP_Texture destTexture, CMP_CompressOptions options)
         {
-            return CMP_ConvertTexture(sourceTexture, destTexture, options.UnmanagedCopy, IntPtr.Zero);
+            var ptr = new MarshaledStruct<CMP_CompressOptions>();
+            return CMP_ConvertTexture(sourceTexture, destTexture, ptr.Write(options), IntPtr.Zero);
         }
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -25,7 +26,8 @@ namespace Compressonator.NET
 
         public static CMP_ERROR CMP_ConvertMipTexture(CMP_MipSet mipSetIn, CMP_MipSet mipSetOut, CMP_CompressOptions options)
         {
-            return CMP_ConvertMipTexture(mipSetIn, mipSetOut, options.UnmanagedCopy, IntPtr.Zero);
+            var ptr = new MarshaledStruct<CMP_CompressOptions>();
+            return CMP_ConvertMipTexture(mipSetIn, mipSetOut, ptr.Write(options), IntPtr.Zero);
         }
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]

@@ -9,31 +9,58 @@ public class CompressionTests : SnapshotTestingBase
     public const float DEFAULT_BC67COMPRESSION_QUALITY = 0.05f;
     public const float RESONITE_BC67COMPRESSION_QUALITY = 0.6f;
 
-    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png")]
+    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png")]
 
-    // BC6H at default quality
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT,  "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    // Paperclips
+    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png")]
+    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png")]
+    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png")]
+    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png")]
+    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png")]
+
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/paperclips.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    // Carrots
+    [DataRow(CMP_FORMAT.BC1, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png")]
+    [DataRow(CMP_FORMAT.BC2, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png")]
+    [DataRow(CMP_FORMAT.BC3, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png")]
+    [DataRow(CMP_FORMAT.BC4, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png")]
+    [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png")]
+
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/carrots.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
+    // Misc
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
 
-    // BC6H at the quality Resonite used to use - These are generated but disabled by default, because they take double the time as 0.05f
-    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
 
-    // BC7 at default quality
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
-    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", DEFAULT_BC67COMPRESSION_QUALITY)]
 
-    // BC7 at the quality Resonite used to use, disabled, these took > 10 minutes
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
-    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
-    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png", RESONITE_BC67COMPRESSION_QUALITY)]
+    
+    
     [DataTestMethod]
     public async Task TestCompression(
         CMP_FORMAT targetFormat,
@@ -44,19 +71,18 @@ public class CompressionTests : SnapshotTestingBase
     {
         VerifySettings settings = new VerifySettings();
 
-        if (ShouldUniqueForOperatingSystem(targetFormat))
+        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
+        settings.UniqueForOSPlatform();
+
+        if (IsSlow(targetFormat))
         {
             if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
-                Assert.Inconclusive($"BC6H and BC7 Tests, at a higher quality than {DEFAULT_BC67COMPRESSION_QUALITY} are disabled by default due to how long they take.");
-
-            // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
-            settings.UniqueForOSPlatform();
+                Assert.Inconclusive($"BC6H & BC7 Tests at higher qualities than {DEFAULT_BC67COMPRESSION_QUALITY} due to how long they take.");
         }
 
-        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
-        if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
-            settings.UniqueForOSPlatform();
-
+        //// see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
+        //if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
+        //    settings.UniqueForOSPlatform();
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
@@ -67,7 +93,8 @@ public class CompressionTests : SnapshotTestingBase
             destFormat = targetFormat,
             sourceFormat = sourceFormat,
             quality = quality,
-            numThreads = (uint)maxThreads
+            numThreads = (uint)maxThreads,
+            encodeWidth = CMP_ComputeType.CMP_CPU
         };
 
         cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, mipSetOut, options);
@@ -96,7 +123,7 @@ public class CompressionTests : SnapshotTestingBase
         if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
             settings.UniqueForOSPlatform();
 
-        if (ShouldUniqueForOperatingSystem(targetFormat))
+        if (IsSlow(targetFormat))
         {
             settings.UniqueForOSPlatform();
             // See: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/17
@@ -125,7 +152,7 @@ public class CompressionTests : SnapshotTestingBase
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut, settings: settings);
     }
 
-    public bool ShouldUniqueForOperatingSystem(CMP_FORMAT format)
+    public bool IsSlow(CMP_FORMAT format)
     {
         switch(format)
         {

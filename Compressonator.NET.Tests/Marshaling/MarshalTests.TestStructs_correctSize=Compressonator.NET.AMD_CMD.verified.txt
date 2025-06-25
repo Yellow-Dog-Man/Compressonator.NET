@@ -1,0 +1,16 @@
+﻿{
+  TotalSize: 48,
+  Fields: [
+    {
+      FieldName: strCommand,
+      ByteSize: 32
+    },
+    {
+      FieldName: strParameter,
+      ByteSize: 16
+    }
+  ],
+  NestedRecords: [],
+  FieldSize: 48,
+  FieldCount: 2
+}
