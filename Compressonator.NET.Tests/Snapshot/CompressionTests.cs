@@ -71,18 +71,18 @@ public class CompressionTests : SnapshotTestingBase
     {
         VerifySettings settings = new VerifySettings();
 
-        if (ShouldUniqueForOperatingSystem(targetFormat))
+        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
+        settings.UniqueForOSPlatform();
+
+        if (IsSlow(targetFormat))
         {
             if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
                 Assert.Inconclusive($"BC6H & BC7 Tests at higher qualities than {DEFAULT_BC67COMPRESSION_QUALITY} due to how long they take.");
-
-            // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
-            settings.UniqueForOSPlatform();
         }
 
-        // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
-        if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
-            settings.UniqueForOSPlatform();
+        //// see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
+        //if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
+        //    settings.UniqueForOSPlatform();
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
@@ -123,7 +123,7 @@ public class CompressionTests : SnapshotTestingBase
         if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
             settings.UniqueForOSPlatform();
 
-        if (ShouldUniqueForOperatingSystem(targetFormat))
+        if (IsSlow(targetFormat))
         {
             settings.UniqueForOSPlatform();
             // See: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/17
@@ -152,7 +152,7 @@ public class CompressionTests : SnapshotTestingBase
         await SnapshotUtilities.SaveVerifyDelete(mipSetOut, settings: settings);
     }
 
-    public bool ShouldUniqueForOperatingSystem(CMP_FORMAT format)
+    public bool IsSlow(CMP_FORMAT format)
     {
         switch(format)
         {
