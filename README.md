@@ -6,6 +6,11 @@ Compressonator binaries are sourced from [our fork of the Native Library](https:
 Binaries are packed into the NuGet Package according to [DotNet Guidance](https://learn.microsoft.com/en-us/dotnet/standard/native-interop/native-library-loading)
 
 
+## Test Images
+This project uses Test Images for Snapshot Testing. You can read credits for these images on a [dedicated page](https://github.com/Yellow-Dog-Man/Compressonator.NET/tree/main/Compressonator.NET.Tests/Snapshot/Resources).
+
+We are currently **NOT** looking for any additional test images. Each one adds a minute or two to our CI.
+
 ## Viewing Snapshot Files
 Some of our Snapshot files are generated as DDS which can be tricky to view.
 
