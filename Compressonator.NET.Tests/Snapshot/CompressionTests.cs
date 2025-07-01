@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 namespace Compressonator.NET.Tests.Snapshot;
 
 [TestClass]
@@ -50,16 +50,24 @@ public class CompressionTests : SnapshotTestingBase
     // Misc
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", DEFAULT_BC67COMPRESSION_QUALITY)]
 
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", RESONITE_BC67COMPRESSION_QUALITY)]
 
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", DEFAULT_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", DEFAULT_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", DEFAULT_BC67COMPRESSION_QUALITY)]
 
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/squares.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/shanghai.jpg", RESONITE_BC67COMPRESSION_QUALITY)]
-    
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", RESONITE_BC67COMPRESSION_QUALITY)]
+    [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", RESONITE_BC67COMPRESSION_QUALITY)]
+
     
     [DataTestMethod]
     public async Task TestCompression(
@@ -130,7 +138,7 @@ public class CompressionTests : SnapshotTestingBase
             // See; https://github.com/Yellow-Dog-Man/compressonator/issues/10
             Assert.Inconclusive("BC6H & BC67 Tests are disabled for this test.");
         }
-            
+
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
 
