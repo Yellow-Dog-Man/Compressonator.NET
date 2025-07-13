@@ -40,12 +40,13 @@ namespace Compressonator.NET
             // a bit hacky way to detect if it's working, but should work for now
             try
             {
-                var tex = new CMP_Texture();
-
-                tex.width = 4;
-                tex.height = 4;
-                tex.pitch = 4 * 4;
-                tex.format = CMP_FORMAT.RGBA_8888;
+                var tex = new CMP_Texture
+                {
+                    width = 4,
+                    height = 4,
+                    pitch = 4 * 4,
+                    format = CMP_FORMAT.RGBA_8888
+                };
                 tex.CalculateDataSize();
 
                 return true;
