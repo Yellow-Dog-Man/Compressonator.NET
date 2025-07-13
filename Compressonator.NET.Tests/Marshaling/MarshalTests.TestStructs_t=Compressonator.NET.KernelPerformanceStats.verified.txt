@@ -1,0 +1,24 @@
+﻿{
+  FieldName: KernelPerformanceStats,
+  Size: 12,
+  Nested: [
+    {
+      FieldName: computeShaderElapsedMS,
+      Size: 4,
+      Type: Single
+    },
+    {
+      FieldName: numBlocks,
+      Size: 4,
+      Offset: 4,
+      Type: Int32
+    },
+    {
+      FieldName: cmpMTxPerSec,
+      Size: 4,
+      Offset: 8,
+      Type: Single
+    }
+  ],
+  Type: struct
+}

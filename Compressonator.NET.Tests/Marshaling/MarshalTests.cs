@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+using static VerifyTests.VerifyMarshaling;
 
 namespace Compressonator.NET.Tests;
 
@@ -20,10 +20,7 @@ public partial class MarshalTests
         Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, Marshal.SizeOf<CMP_CompressOptions>(), "CMP_CompressOptions should have the correct size");
         Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, (int)options.size, "CMP_CompressOptions's size should be auto-set on construct");
 
-        var r = MarshalTestUtilities.GetMarshalRecord(typeof(CMP_CompressOptions));
-        Assert.AreEqual(CORRECT_COMPRESSOPTIONS_SIZE, r.TotalSize);
-        Assert.AreEqual(CORRECT_COMPRESSOPTIONS_FIELDS, r.FieldCount + r.NestedCount);
-        await Verify(r);
+        await VerifyMemoryLayout(typeof(CMP_CompressOptions));
     }
 
     [TestMethod]
@@ -41,7 +38,6 @@ public partial class MarshalTests
     {
         Assert.AreEqual(correctSize, Marshal.SizeOf(t), $"{nameof(t)} must marshal as {correctSize} bytes");
 
-        var r = MarshalTestUtilities.GetMarshalRecord(t);
-        await Verify(r).UseParameters(t);
+        await VerifyMemoryLayout(t);
     }
 }

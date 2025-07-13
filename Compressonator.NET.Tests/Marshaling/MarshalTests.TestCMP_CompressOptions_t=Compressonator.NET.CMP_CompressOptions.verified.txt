@@ -1,0 +1,384 @@
+﻿{
+  FieldName: CMP_CompressOptions,
+  Size: 1511,
+  Nested: [
+    {
+      FieldName: size,
+      Size: 4,
+      Type: UInt32
+    },
+    {
+      FieldName: doPreconditionBRLG,
+      Size: 1,
+      Offset: 4,
+      Type: Boolean
+    },
+    {
+      FieldName: doDeltaEncodeBRLG,
+      Size: 1,
+      Offset: 5,
+      Type: Boolean
+    },
+    {
+      FieldName: doSwizzleBRLG,
+      Size: 1,
+      Offset: 6,
+      Type: Boolean
+    },
+    {
+      FieldName: pageSize,
+      Size: 4,
+      Offset: 7,
+      Type: UInt32
+    },
+    {
+      FieldName: useRefinementSteps,
+      Size: 1,
+      Offset: 11,
+      Type: Boolean
+    },
+    {
+      FieldName: refinementSteps,
+      Size: 4,
+      Offset: 12,
+      Type: Int32
+    },
+    {
+      FieldName: useChannelWeighting,
+      Size: 1,
+      Offset: 16,
+      Type: Boolean
+    },
+    {
+      FieldName: weightingRed,
+      Size: 4,
+      Offset: 17,
+      Type: Single
+    },
+    {
+      FieldName: weightingGreen,
+      Size: 4,
+      Offset: 21,
+      Type: Single
+    },
+    {
+      FieldName: weightingBlue,
+      Size: 4,
+      Offset: 25,
+      Type: Single
+    },
+    {
+      FieldName: useAdaptiveWeighting,
+      Size: 1,
+      Offset: 29,
+      Type: Boolean
+    },
+    {
+      FieldName: DXT1UseAlpha,
+      Size: 1,
+      Offset: 30,
+      Type: Boolean
+    },
+    {
+      FieldName: useGPUDecompress,
+      Size: 1,
+      Offset: 31,
+      Type: Boolean
+    },
+    {
+      FieldName: useCGCompress,
+      Size: 1,
+      Offset: 32,
+      Type: Boolean
+    },
+    {
+      FieldName: alphaThreshold,
+      Size: 1,
+      Offset: 33,
+      Type: Byte
+    },
+    {
+      FieldName: disableMultiThreading,
+      Size: 1,
+      Offset: 34,
+      Type: Boolean
+    },
+    {
+      FieldName: compressionSpeed,
+      Size: 4,
+      Offset: 35,
+      Type: CMP_Speed
+    },
+    {
+      FieldName: GPUDecode,
+      Size: 4,
+      Offset: 39,
+      Type: CMP_GPUDecode
+    },
+    {
+      FieldName: encodeWidth,
+      Size: 4,
+      Offset: 43,
+      Type: CMP_ComputeType
+    },
+    {
+      FieldName: numThreads,
+      Size: 4,
+      Offset: 47,
+      Type: UInt32
+    },
+    {
+      FieldName: quality,
+      Size: 4,
+      Offset: 51,
+      Type: Single
+    },
+    {
+      FieldName: restrictColour,
+      Size: 1,
+      Offset: 55,
+      Type: Boolean
+    },
+    {
+      FieldName: restrictAlpha,
+      Size: 1,
+      Offset: 56,
+      Type: Boolean
+    },
+    {
+      FieldName: modeMask,
+      Size: 4,
+      Offset: 57,
+      Type: UInt32
+    },
+    {
+      FieldName: numCmds,
+      Size: 4,
+      Offset: 61,
+      Type: Int32
+    },
+    {
+      FieldName: AMD_CMD,
+      Size: 960,
+      Offset: 65,
+      Count: 20,
+      Nested: [
+        {
+          FieldName: strCommand,
+          Size: 32,
+          Type: String
+        },
+        {
+          FieldName: strParameter,
+          Size: 16,
+          Offset: 32,
+          Type: String
+        }
+      ],
+      Pack: 1,
+      Type: array
+    },
+    {
+      FieldName: inputDefog,
+      Size: 4,
+      Offset: 1025,
+      Type: Single
+    },
+    {
+      FieldName: inputExposure,
+      Size: 4,
+      Offset: 1029,
+      Type: Single
+    },
+    {
+      FieldName: inputKneeLow,
+      Size: 4,
+      Offset: 1033,
+      Type: Single
+    },
+    {
+      FieldName: inputKneeHigh,
+      Size: 4,
+      Offset: 1037,
+      Type: Single
+    },
+    {
+      FieldName: inputGamma,
+      Size: 4,
+      Offset: 1041,
+      Type: Single
+    },
+    {
+      FieldName: inputFilterGamma,
+      Size: 4,
+      Offset: 1045,
+      Type: Single
+    },
+    {
+      FieldName: cmpLevel,
+      Size: 4,
+      Offset: 1049,
+      Type: Int32
+    },
+    {
+      FieldName: posBits,
+      Size: 4,
+      Offset: 1053,
+      Type: Int32
+    },
+    {
+      FieldName: texCbits,
+      Size: 4,
+      Offset: 1057,
+      Type: Int32
+    },
+    {
+      FieldName: normalBits,
+      Size: 4,
+      Offset: 1061,
+      Type: Int32
+    },
+    {
+      FieldName: genericBits,
+      Size: 4,
+      Offset: 1065,
+      Type: Int32
+    },
+    {
+      FieldName: vCacheSize,
+      Size: 4,
+      Offset: 1069,
+      Type: Int32
+    },
+    {
+      FieldName: vCacheFIFOsize,
+      Size: 4,
+      Offset: 1073,
+      Type: Int32
+    },
+    {
+      FieldName: overdrawACMR,
+      Size: 4,
+      Offset: 1077,
+      Type: Single
+    },
+    {
+      FieldName: simplifyLOD,
+      Size: 4,
+      Offset: 1081,
+      Type: Int32
+    },
+    {
+      FieldName: vertexFetch,
+      Size: 1,
+      Offset: 1085,
+      Type: Boolean
+    },
+    {
+      FieldName: sourceFormat,
+      Size: 4,
+      Offset: 1086,
+      Type: CMP_FORMAT
+    },
+    {
+      FieldName: destFormat,
+      Size: 4,
+      Offset: 1090,
+      Type: CMP_FORMAT
+    },
+    {
+      FieldName: format_support_hostEncoder,
+      Size: 1,
+      Offset: 1094,
+      Type: Boolean
+    },
+    {
+      FieldName: printInfoStr,
+      Size: 8,
+      Offset: 1095,
+      Type: String
+    },
+    {
+      FieldName: getPerfStats,
+      Size: 1,
+      Offset: 1103,
+      Type: Boolean
+    },
+    {
+      FieldName: KernelPerformanceStats,
+      Size: 12,
+      Offset: 1104,
+      Nested: [
+        {
+          FieldName: computeShaderElapsedMS,
+          Size: 4,
+          Type: Single
+        },
+        {
+          FieldName: numBlocks,
+          Size: 4,
+          Offset: 4,
+          Type: Int32
+        },
+        {
+          FieldName: cmpMTxPerSec,
+          Size: 4,
+          Offset: 8,
+          Type: Single
+        }
+      ],
+      Type: struct
+    },
+    {
+      FieldName: getDeviceInfo,
+      Size: 1,
+      Offset: 1116,
+      Type: Boolean
+    },
+    {
+      FieldName: KernelDeviceInfo,
+      Size: 388,
+      Offset: 1117,
+      Nested: [
+        {
+          FieldName: deviceName,
+          Size: 256,
+          Type: String
+        },
+        {
+          FieldName: version,
+          Size: 128,
+          Offset: 256,
+          Type: String
+        },
+        {
+          FieldName: maxUCores,
+          Size: 4,
+          Offset: 384,
+          Type: Int32
+        }
+      ],
+      Type: struct
+    },
+    {
+      FieldName: genGPUMipMaps,
+      Size: 1,
+      Offset: 1505,
+      Type: Boolean
+    },
+    {
+      FieldName: useSRGBFrames,
+      Size: 1,
+      Offset: 1506,
+      Type: Boolean
+    },
+    {
+      FieldName: miplevels,
+      Size: 4,
+      Offset: 1507,
+      Type: Int32
+    }
+  ],
+  Pack: 1,
+  Type: struct
+}

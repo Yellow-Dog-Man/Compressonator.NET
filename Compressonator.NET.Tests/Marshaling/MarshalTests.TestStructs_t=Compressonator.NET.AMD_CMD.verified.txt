@@ -1,0 +1,19 @@
+﻿{
+  FieldName: AMD_CMD,
+  Size: 48,
+  Nested: [
+    {
+      FieldName: strCommand,
+      Size: 32,
+      Type: String
+    },
+    {
+      FieldName: strParameter,
+      Size: 16,
+      Offset: 32,
+      Type: String
+    }
+  ],
+  Pack: 1,
+  Type: struct
+}
