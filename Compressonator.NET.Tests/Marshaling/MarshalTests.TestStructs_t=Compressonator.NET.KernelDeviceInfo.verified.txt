@@ -1,0 +1,24 @@
+﻿{
+  FieldName: KernelDeviceInfo,
+  Size: 388,
+  Nested: [
+    {
+      FieldName: deviceName,
+      Size: 256,
+      Type: String
+    },
+    {
+      FieldName: version,
+      Size: 128,
+      Offset: 256,
+      Type: String
+    },
+    {
+      FieldName: maxUCores,
+      Size: 4,
+      Offset: 384,
+      Type: Int32
+    }
+  ],
+  Type: struct
+}
