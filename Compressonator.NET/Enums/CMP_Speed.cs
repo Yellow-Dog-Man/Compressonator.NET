@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Compressonator.NET
+﻿namespace Compressonator.NET
 {
     public enum CMP_Speed: uint
     {
