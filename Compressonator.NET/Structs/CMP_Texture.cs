@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace Compressonator.NET
 {
     [StructLayout(LayoutKind.Sequential)]
-    public class CMP_Texture
+    public class CMP_Texture: IDisposable
     {
         [MarshalAs(UnmanagedType.U4)]
         public uint size = (uint)Marshal.SizeOf<CMP_Texture>();
@@ -37,6 +37,41 @@ namespace Compressonator.NET
         public void CalculateDataSize()
         {
             dataSize = SDK_NativeMethods.CMP_CalculateBufferSize(this);
+        }
+
+        public void AllocateDataPointer()
+        {
+            if (dataSize == 0)
+                CalculateDataSize();
+
+            data = Marshal.AllocHGlobal((int)dataSize);
+        }
+
+        public void CopyDimensionsFrom(CMP_Texture sourceTexture)
+        {
+            this.width =  sourceTexture.width;
+            this.height = sourceTexture.height;
+            this.blockHeight = sourceTexture.blockHeight;
+            this.blockWidth = sourceTexture.blockWidth;
+            this.blockDepth = sourceTexture.blockDepth;
+            this.pitch = sourceTexture.pitch;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (data != IntPtr.Zero)
+                Marshal.FreeHGlobal(data);
+        }
+
+        ~CMP_Texture()
+        {
+            Dispose(false);
         }
     }
 }
