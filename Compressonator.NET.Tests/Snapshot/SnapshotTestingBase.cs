@@ -10,7 +10,8 @@ public abstract partial class SnapshotTestingBase: VerifyBase
 
     public SnapshotTestingBase()
     {
-        FrameworkNativeMethods.CMP_InitFramework();
+        if (!Initialized)
+            FrameworkNativeMethods.CMP_InitFramework();
         Initialized = true;
     }
 }
