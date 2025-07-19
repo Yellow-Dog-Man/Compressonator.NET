@@ -23,6 +23,15 @@ namespace Compressonator.NET
         public static extern CMP_ERROR CMP_SaveTexture(string destinationFile, [In][Out] CMP_MipSet mipSet);
 
         [DllImport(LIBRARY_NAME)]
+        private static extern CMP_ERROR CMP_SaveTextureEx(string destinationFile, [In][Out] CMP_Texture texture);
+
+        // Aliasesed to avoid, exposing API consumers to multiple functions here.
+        public static CMP_ERROR CMP_SaveTexture(string destinationFile, CMP_Texture texture)
+        {
+            return CMP_SaveTextureEx(destinationFile, texture);
+        }
+
+        [DllImport(LIBRARY_NAME)]
         public static extern CMP_ERROR CMP_ProcessTexture([In][Out] CMP_MipSet srcMipSet, [In][Out] CMP_MipSet dstMipSet, [MarshalAs(UnmanagedType.Struct)] KernelOptions kernelOptions, IntPtr feedbackProc);
 
         [DllImport(LIBRARY_NAME)]

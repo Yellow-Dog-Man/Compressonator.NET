@@ -35,6 +35,7 @@ namespace Compressonator.NET
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern CMP_ERROR CMP_MipSetToTexture([In][Out] CMP_MipSet mipSetIn, int mipLevel,[In][Out] CMP_Texture destTexture);
+
         public static bool IsSupported => _isSupported.Value;
 
         static readonly Lazy<bool> _isSupported = new Lazy<bool>(() =>
