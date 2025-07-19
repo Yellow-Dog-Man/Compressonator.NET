@@ -4,7 +4,7 @@ namespace Compressonator.NET.Tests.Snapshot;
 [TestClass]
 public class CompressionTests : SnapshotTestingBase
 {
-    public const CMP_FORMAT DEFAULT_SOURCE_FORMAT = CMP_FORMAT.RGBA_8888;
+    public const CMP_FORMAT DEFAULT_SOURCE_FORMAT = SnapshotUtilities.DEFAULT_SOURCE_FORMAT;
 
     public const float DEFAULT_BC67COMPRESSION_QUALITY = 0.05f;
     public const float RESONITE_BC67COMPRESSION_QUALITY = 0.6f;
@@ -92,7 +92,8 @@ public class CompressionTests : SnapshotTestingBase
         //if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
         //    settings.UniqueForOSPlatform();
 
-        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
+        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, sourceFormat, mipLevels: 3);
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
 
         CMP_MipSet mipSetOut = new();
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
@@ -140,7 +141,8 @@ public class CompressionTests : SnapshotTestingBase
         }
 
 
-        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, targetFormat, sourceFormat);
+        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, sourceFormat);
+        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
 
         CMP_MipSet mipSetOut = new();
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;

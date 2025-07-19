@@ -6,18 +6,20 @@ namespace Compressonator.NET.Tests.Snapshot;
 
 public static class SnapshotUtilities
 {
+    public const CMP_FORMAT DEFAULT_SOURCE_FORMAT = CMP_FORMAT.RGBA_8888;
     /// <summary>
     /// Standardized way to create the start of a compressonator chain for testing.
     /// </summary>
     /// <param name="relativePath"></param>
     /// <returns></returns>
-    public static (CMP_ERROR, CMP_MipSet) Load(string relativePath, CMP_FORMAT targetFormat, CMP_FORMAT sourceFormat)
+    public static (CMP_ERROR, CMP_MipSet) Load(string relativePath, CMP_FORMAT sourceFormat = DEFAULT_SOURCE_FORMAT, int mipLevels = 3)
     {
-        Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
         Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(sourceFormat), "Source format must be supported by native library");
 
         var path = CurrentFile.Relative(relativePath);
         CMP_MipSet mipSetIn = new();
+        mipSetIn.maxMipLevels = mipLevels;
+        mipSetIn.mipLevels = mipLevels;
 
         Assert.IsTrue(File.Exists(path), "Input file must exist!");
 
@@ -35,16 +37,31 @@ public static class SnapshotUtilities
         return Path.Join("Out", Path.ChangeExtension(Path.GetRandomFileName(), extension));
     }
 
+    public static async Task SaveVerifyDelete(CMP_Texture texture, string extension = "png", VerifySettings? settings = null)
+    {
+        var path = CurrentFile.Relative(GetFileNameForTest(extension));
+        var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, texture);
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");
+
+        Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
+
+        await VerifyDelete(settings, path);
+    }
+
     public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds", VerifySettings? settings = null)
     {
         var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");  
+        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");
 
         Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
 
-        VerifyResult? res;
+        await VerifyDelete(settings, path);
+    }
 
+    private static async Task<VerifyResult> VerifyDelete(VerifySettings? settings, String path)
+    {
+        VerifyResult res;
         if (settings != null)
             res = await VerifyFile(path, settings);
         else
@@ -55,6 +72,7 @@ public static class SnapshotUtilities
 
         Assert.IsNotNull(res, "Verify result must be present");
         Assert.IsNull(res.Target, "Verify result must not be error");
+        return res;
     }
 
     public static int UpdateMips(CMP_MipSet mipSetIn)
