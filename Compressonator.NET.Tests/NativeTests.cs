@@ -1,9 +1,11 @@
 ﻿namespace Compressonator.NET.Tests;
 
+[TestCategory("Smoke")]
 [TestClass]
 public sealed class NativeTests
 {
     [TestMethod]
+    [Priority(1)]
     [TestProperty("CI", "true")]
     public void TestSDKNative()
     {
@@ -11,6 +13,7 @@ public sealed class NativeTests
     }
 
     [TestMethod]
+    [Priority(1)]
     [TestProperty("CI", "true")]
     public void TestFrameworkNative()
     {
