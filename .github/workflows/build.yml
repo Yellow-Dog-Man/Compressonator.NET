@@ -32,7 +32,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --configuration Release
+      run: dotnet test --no-restore --configuration Release --filter "TestProperty.CI=true"
     - name: Upload Test Results
       if: failure()
       uses: actions/upload-artifact@v4

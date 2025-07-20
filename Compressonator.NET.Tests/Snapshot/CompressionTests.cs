@@ -68,7 +68,7 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/flowers.png", RESONITE_BC67COMPRESSION_QUALITY)]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/helicopter.png", RESONITE_BC67COMPRESSION_QUALITY)]
 
-    
+    [TestProperty("CI", "true")]
     [DataTestMethod]
     public async Task TestCompression(
         CMP_FORMAT targetFormat,
@@ -82,11 +82,7 @@ public class CompressionTests : SnapshotTestingBase
         // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/20
         settings.UniqueForOSPlatform();
 
-        if (IsSlow(targetFormat))
-        {
-            if (quality > DEFAULT_BC67COMPRESSION_QUALITY)
-                Assert.Inconclusive($"BC6H & BC7 Tests at higher qualities than {DEFAULT_BC67COMPRESSION_QUALITY} due to how long they take.");
-        }
+        TestUtilities.GuardCITests(targetFormat, quality);
 
         //// see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
         //if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
@@ -120,7 +116,8 @@ public class CompressionTests : SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC5, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC6H, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
     [DataRow(CMP_FORMAT.BC7, DEFAULT_SOURCE_FORMAT, "Resources/rainbow.png")]
-    [DataTestMethod]
+    [TestMethod]
+    [TestProperty("CI", "true")]
     public async Task TestProcessTexture(CMP_FORMAT targetFormat,
         CMP_FORMAT sourceFormat,
         string inputFileRelativePath,
@@ -132,14 +129,7 @@ public class CompressionTests : SnapshotTestingBase
         if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
             settings.UniqueForOSPlatform();
 
-        if (IsSlow(targetFormat))
-        {
-            settings.UniqueForOSPlatform();
-            // See: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/17
-            // See; https://github.com/Yellow-Dog-Man/compressonator/issues/10
-            Assert.Inconclusive("BC6H & BC67 Tests are disabled for this test.");
-        }
-
+        TestUtilities.GuardCITests(targetFormat, quality);
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, sourceFormat);
         Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");

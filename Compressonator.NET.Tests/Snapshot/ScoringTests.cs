@@ -10,7 +10,7 @@ namespace Compressonator.NET.Tests;
 [TestClass]
 public class ScoringTests
 {
-    public const bool DISABLE_SLOW_ONES = false;
+    public static bool DISABLE_SLOW_ONES = TestUtilities.IsCI;
 
     // All times recorded on Prime's Main Development Machine (Intel i7-9700K CPU)
     // All times vary a little by up to 5 s
@@ -18,10 +18,10 @@ public class ScoringTests
     [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.1f, 89.54)] // 16-20 s
     [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.2f, 89.58)] // 21 s
     [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.25f, 94.47)] //1.8 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.3f, 94.47, DISABLE_SLOW_ONES)] // 1.9 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.35f, 94.51, DISABLE_SLOW_ONES)] // 2.3 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.4f, 94.51, DISABLE_SLOW_ONES)] // 2.4 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.6f, 94.62, DISABLE_SLOW_ONES)] // 8+ Minutes
+    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.3f, 94.47)] // 1.9 Minutes
+    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.35f, 94.51)] // 2.3 Minutes
+    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.4f, 94.51)] // 2.4 Minutes
+    [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.6f, 94.62)] // 8+ Minutes
 
     [DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.05f, 89)] //1.8 Minutes
     [DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.1f, 89)] //1.8 Minutes
@@ -31,15 +31,14 @@ public class ScoringTests
     [DataRow(CMP_FORMAT.BC7, "Resources/colorpatch.png", 0.1f, 89)]
     [DataRow(CMP_FORMAT.BC7, "Resources/colorpatch.png", 0.25f, 94)]
     [TestMethod]
+    [TestProperty("CI", "true")]
     public void TestExpectedSsimulacraScore(
         CMP_FORMAT targetFormat,
         string inputFileRelativePath,
         float quality = 0.9f,
-        double threshold = 90,
-        bool disabled = false)
+        double threshold = 90)
     {
-        if (disabled)
-            Assert.Inconclusive($"This test is disabled");
+        TestUtilities.GuardCITests(targetFormat, quality);
 
         var originalPath = CurrentFile.Relative(inputFileRelativePath);
         var distortedPath = CurrentFile.Relative(SnapshotUtilities.GetFileNameForTest("png"));

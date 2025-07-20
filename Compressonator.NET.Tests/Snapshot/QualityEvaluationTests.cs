@@ -33,8 +33,8 @@ public class QualityEvaluationTests: SnapshotTestingBase
     [DataRow(CMP_FORMAT.BC7, 0.10f)]
     [DataRow(CMP_FORMAT.BC7, 0.2f)]
     [DataRow(CMP_FORMAT.BC7, 0.25f)]
-
     [TestMethod]
+    [TestProperty("CI", "false")]
     public async Task VerifyTexture(CMP_FORMAT targetFormat, float quality, bool disabled = false)
     {
         if (disabled)
