@@ -7,6 +7,7 @@ Renamed to keep snapshot file lengths smaller.
 - rainbow.png
 - noise.png
 - square.png
+- colorpatch.png
 
 # Test Images
 - paperclips.png

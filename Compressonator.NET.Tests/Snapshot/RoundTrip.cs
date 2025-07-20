@@ -1,6 +1,4 @@
-﻿using Compressonator.NET.Utilities;
-
-namespace Compressonator.NET.Tests.Snapshot;
+﻿namespace Compressonator.NET.Tests.Snapshot;
 
 [TestClass]
 public class RoundTrip : SnapshotTestingBase
@@ -8,6 +6,7 @@ public class RoundTrip : SnapshotTestingBase
     [TestMethod]
     public async Task BasicRoundTrip()
     {
+        // Verify that IN == OUT
         string sourceFile = "Resources/rainbow.png";
         var (res,set) = SnapshotUtilities.Load(sourceFile);
 
@@ -15,50 +14,17 @@ public class RoundTrip : SnapshotTestingBase
     }
 
     [TestMethod]
-    public async Task CompressDecompressValidate()
+    public void CompressDecompressValidate()
     {
-        CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
-
+        // This test is very similar to our quality evaluation tests, but its designed to be faster and easier
+        // Suitable for "Smoke Tests". Easier to Debug etc.
         string sourceFile = "Resources/carrots.png";
-        var (res, originalSet) = SnapshotUtilities.Load(sourceFile, mipLevels:0);
+        var tmpPath = CurrentFile.Relative(SnapshotUtilities.GetFileNameForTest("png"));
 
-        CMP_MipSet compressedSet = new();
-        compressedSet.format = CMP_FORMAT.BC1;
-        var options = new CMP_CompressOptions()
-        {
-            destFormat = compressedSet.format,
-            sourceFormat = originalSet.format,
-        };
+        CMP_Texture distortedTexture = SnapshotUtilities.RoundTripWithCompression(sourceFile, CMP_FORMAT.BC1, 0.05f);
 
-        // Compress to BC1
-        cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(originalSet, compressedSet, options);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
-        
-        // Extract mip level 0
-        CMP_Texture mipZeroTexture = new();
+        SnapshotUtilities.Save(tmpPath, distortedTexture);
 
-        cmpStatus = SDK_NativeMethods.CMP_MipSetToTexture(compressedSet, 0, mipZeroTexture);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
-
-        // Immediately turn around and re-decompress it
-        CMP_Texture decompressed = new();
-
-        TextureUtilities.CopyDimensions(mipZeroTexture, decompressed);
-        decompressed.format = SnapshotUtilities.DEFAULT_SOURCE_FORMAT;
-        decompressed.transcodeFormat = SnapshotUtilities.DEFAULT_SOURCE_FORMAT;
-        decompressed.AllocateDataPointer();
-
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
-
-        options = new CMP_CompressOptions()
-        {
-            destFormat = SnapshotUtilities.DEFAULT_SOURCE_FORMAT,
-        };
-
-        cmpStatus = SDK_NativeMethods.CMP_ConvertTexture(mipZeroTexture, decompressed, options);
-        Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus);
-
-        // Standard Save Verify Delete
-        await SnapshotUtilities.SaveVerifyDelete(decompressed, "png");
+        File.Delete(tmpPath);
     }
 }

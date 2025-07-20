@@ -84,7 +84,8 @@ namespace Compressonator.NET
         {
             if (!disposed)
             {
-                FrameworkNativeMethods.CMP_FreeMipSet(this);
+                if (data != IntPtr.Zero) // Already freed?
+                    FrameworkNativeMethods.CMP_FreeMipSet(this);
                 disposed = true;
             }
         }
