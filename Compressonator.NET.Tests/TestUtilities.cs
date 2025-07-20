@@ -2,7 +2,7 @@
 
 public static class TestUtilities
 {
-    public const float SLOW_QUALITY_THRESHOLD = 0.3f;
+    public const float SLOW_QUALITY_THRESHOLD = 0.15f;
     public static bool IsCI => Environment.GetEnvironmentVariable("CI") == "true";
 
     public static void GuardCITests(CMP_FORMAT targetFormat, float quality)
