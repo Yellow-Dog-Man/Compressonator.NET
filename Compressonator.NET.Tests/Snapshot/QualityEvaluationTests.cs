@@ -37,8 +37,11 @@ public class QualityEvaluationTests: SnapshotTestingBase
     [TestProperty("CI", "false")]
     public async Task VerifyTexture(CMP_FORMAT targetFormat, float quality, bool disabled = false)
     {
+        TestUtilities.GuardCITests(targetFormat, quality);
+
         if (disabled)
             Assert.Inconclusive($"This test is disabled");
+
         foreach (string path in paths)
         {
             var settings = new VerifySettings();

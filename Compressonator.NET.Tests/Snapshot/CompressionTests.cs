@@ -124,12 +124,13 @@ public class CompressionTests : SnapshotTestingBase
         float quality = 0.9f,
         uint maxThreads = 0)
     {
+        TestUtilities.GuardCITests(targetFormat, quality);
         VerifySettings settings = new VerifySettings();
         // see: https://github.com/Yellow-Dog-Man/Compressonator.NET/issues/21
         if (targetFormat == CMP_FORMAT.BC2 && inputFileRelativePath == "Resources/rainbow.png")
             settings.UniqueForOSPlatform();
 
-        TestUtilities.GuardCITests(targetFormat, quality);
+        
 
         var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath, sourceFormat);
         Assert.IsTrue(SDK_NativeMethods.CMP_IsValidFormat(targetFormat), "Target format must be supported by native library");
