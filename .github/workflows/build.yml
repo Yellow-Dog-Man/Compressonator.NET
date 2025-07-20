@@ -28,7 +28,7 @@ jobs:
       with:
         dotnet-version: 9.x
     - name: Test
-      run: dotnet test --no-restore --configuration Release --filter CI!=false
+      run: dotnet test --configuration Release --filter CI!=false
     - name: Upload Test Results
       if: failure()
       uses: actions/upload-artifact@v4
