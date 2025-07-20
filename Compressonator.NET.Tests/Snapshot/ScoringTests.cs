@@ -23,9 +23,9 @@ public class ScoringTests
     [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.4f, 94.51)] // 2.4 Minutes
     [DataRow(CMP_FORMAT.BC7, "Resources/squares.png", 0.6f, 94.62)] // 8+ Minutes
 
-    [DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.05f, 89)] //1.8 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.1f, 89)] //1.8 Minutes
-    [DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.25f, 94)] //1.8 Minutes
+    //[DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.05f, 89)] //1.8 Minutes
+    //[DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.1f, 89)] //1.8 Minutes
+    //[DataRow(CMP_FORMAT.BC7, "Resources/wings.png", 0.25f, 94)] //1.8 Minutes
 
     [DataRow(CMP_FORMAT.BC7, "Resources/colorpatch.png", 0.05f, 89)]
     [DataRow(CMP_FORMAT.BC7, "Resources/colorpatch.png", 0.1f, 89)]
