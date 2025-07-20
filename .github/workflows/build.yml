@@ -27,6 +27,10 @@ jobs:
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.x
+    - uses: gerlero/apt-install@v1
+      if: startsWith(matrix.os, 'ubuntu') == true
+      with:
+        packages: libhwy-dev liblcms2-dev libjpeg-turbo8-dev libpng-dev libjpeg-dev zlib1g-dev libgif-dev
     - name: Test
       run: dotnet test --configuration Release --filter CI!=false
     - name: Upload Test Results
