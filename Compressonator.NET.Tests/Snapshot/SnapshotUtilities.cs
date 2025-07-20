@@ -51,13 +51,16 @@ public static class SnapshotUtilities
         await VerifyDelete(settings, path);
     }
 
-    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds", VerifySettings? settings = null)
+    public static async Task SaveVerifyDelete(CMP_MipSet set, string extension = "dds", VerifySettings? settings = null, bool dispose = true)
     {
         var path = CurrentFile.Relative(GetFileNameForTest(extension));
         var cmpStatus = FrameworkNativeMethods.CMP_SaveTexture(path, set);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Save operation must succeed");
 
         Assert.IsTrue(File.Exists(path), $"Saved file must exist:{path}");
+
+        if (dispose)
+            set.Dispose();
 
         await VerifyDelete(settings, path);
     }
