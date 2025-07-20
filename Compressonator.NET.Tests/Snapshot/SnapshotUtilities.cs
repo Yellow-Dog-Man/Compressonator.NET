@@ -98,10 +98,10 @@ public static class SnapshotUtilities
         CMP_ERROR cmpStatus = CMP_ERROR.CMP_OK;
 
         // Load original
-        var (res, mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
+        (CMP_ERROR res, CMP_MipSet mipSetIn) = SnapshotUtilities.Load(inputFileRelativePath);
 
         // Compress to target format and quality
-        CMP_MipSet compressedSet = new();
+        using CMP_MipSet compressedSet = new();
 
         var options = new CMP_CompressOptions()
         {
@@ -114,7 +114,6 @@ public static class SnapshotUtilities
         cmpStatus = SDK_NativeMethods.CMP_ConvertMipTexture(mipSetIn, compressedSet, options);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Compression process must succeed");
 
-        CMP_MipSet mipSetOut = new();
 
         // Extract mip level 0
         CMP_Texture mipZeroTexture = new();
@@ -142,6 +141,8 @@ public static class SnapshotUtilities
 
         cmpStatus = SDK_NativeMethods.CMP_ConvertTexture(mipZeroTexture, decompressed, options);
         Assert.AreEqual(CMP_ERROR.CMP_OK, cmpStatus, "Decompression must succeeed");
+
+        mipSetIn.Dispose();
 
         // Return final Decompressed Texture
         return decompressed;
