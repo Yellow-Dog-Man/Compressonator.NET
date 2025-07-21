@@ -82,6 +82,7 @@ namespace Compressonator.NET
 
         protected virtual void Dispose(bool disposing)
         {
+            Console.WriteLine("Dipose Mipset: " + this.format);
             if (disposed)
                 return;
 

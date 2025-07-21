@@ -65,6 +65,7 @@ namespace Compressonator.NET
 
         protected virtual void Dispose(bool disposing)
         {
+            Console.WriteLine("Dipose Texture: " + this.format);
             if (data != IntPtr.Zero)
                 Marshal.FreeHGlobal(data);
         }
