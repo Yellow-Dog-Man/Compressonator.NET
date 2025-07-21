@@ -1,9 +1,10 @@
 ﻿namespace Compressonator.NET.Tests.Snapshot;
 
+[TestCategory("Smoke")]
 [TestClass]
 public class RoundTrip : SnapshotTestingBase
 {
-    [TestCategory("Smoke")]
+    
     [TestMethod]
     [TestProperty("CI", "true")]
     public async Task BasicRoundTrip()
@@ -15,7 +16,6 @@ public class RoundTrip : SnapshotTestingBase
         await SnapshotUtilities.SaveVerifyDelete(set, "png");
     }
 
-    [TestCategory("Smoke")]
     [TestMethod]
     [TestProperty("CI", "true")]
     public void CompressDecompressValidate()
