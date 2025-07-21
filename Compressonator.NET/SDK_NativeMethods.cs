@@ -16,8 +16,8 @@ namespace Compressonator.NET
 
         public static CMP_ERROR CMP_ConvertTexture(CMP_Texture sourceTexture, CMP_Texture destTexture, CMP_CompressOptions options)
         {
-            var ptr = new MarshaledStruct<CMP_CompressOptions>();
-            return CMP_ConvertTexture(sourceTexture, destTexture, ptr.Write(options), IntPtr.Zero);
+            var compressOptionsPtr = new MarshaledStruct<CMP_CompressOptions>().Write(options);
+            return CMP_ConvertTexture(sourceTexture, destTexture, compressOptionsPtr, IntPtr.Zero);
         }
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -32,6 +32,9 @@ namespace Compressonator.NET
 
         [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern bool CMP_IsValidFormat([In]CMP_FORMAT format);
+
+        [DllImport(LIBRARY_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern CMP_ERROR CMP_MipSetToTexture([In][Out] CMP_MipSet mipSetIn, int mipLevel,[In][Out] CMP_Texture destTexture);
 
         public static bool IsSupported => _isSupported.Value;
 

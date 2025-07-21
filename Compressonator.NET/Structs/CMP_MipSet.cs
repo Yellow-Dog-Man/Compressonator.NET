@@ -82,16 +82,30 @@ namespace Compressonator.NET
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
-            {
+            if (disposed)
+                return;
+
+            if (data != IntPtr.Zero) // Already freed?
                 FrameworkNativeMethods.CMP_FreeMipSet(this);
-                disposed = true;
-            }
+
+            disposed = true;
         }
 
         ~CMP_MipSet()
         {
             Dispose(false);
         }
+
+        public void CopyDetailsFrom(CMP_MipSet sourceSet)
+        {
+            this.format = sourceSet.format;
+            this.channelFormat = sourceSet.channelFormat;
+
+            this.width = sourceSet.width;
+            this.height = sourceSet.height;
+            this.blockHeight = sourceSet.blockHeight;
+            this.blockWidth = sourceSet.blockWidth;
+        }
     }
+
 }

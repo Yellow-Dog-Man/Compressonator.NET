@@ -7,10 +7,11 @@ Renamed to keep snapshot file lengths smaller.
 - rainbow.png
 - noise.png
 - square.png
+- colorpatch.png
 
 # Test Images
 - paperclips.png
-The images in this archive are part of the TESTIMAGES project: http://testimages.tecnick.com
+The images in this archive are part of the TESTIMAGES project: https://testimages.org/
 Copyright (C) 2011-2014 Nicola Asuni - Tecnick.com LTD
 
 # Misc

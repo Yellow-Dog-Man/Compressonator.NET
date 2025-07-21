@@ -1,0 +1,78 @@
+﻿{
+  FieldName: CMP_Texture,
+  Size: 48,
+  Nested: [
+    {
+      FieldName: size,
+      Size: 4,
+      Type: UInt32
+    },
+    {
+      FieldName: width,
+      Size: 4,
+      Offset: 4,
+      Type: UInt32
+    },
+    {
+      FieldName: height,
+      Size: 4,
+      Offset: 8,
+      Type: UInt32
+    },
+    {
+      FieldName: pitch,
+      Size: 4,
+      Offset: 12,
+      Type: UInt32
+    },
+    {
+      FieldName: format,
+      Size: 4,
+      Offset: 16,
+      Type: CMP_FORMAT
+    },
+    {
+      FieldName: transcodeFormat,
+      Size: 4,
+      Offset: 20,
+      Type: CMP_FORMAT
+    },
+    {
+      FieldName: blockHeight,
+      Size: 1,
+      Offset: 24,
+      Type: Byte
+    },
+    {
+      FieldName: blockWidth,
+      Size: 1,
+      Offset: 25,
+      Type: Byte
+    },
+    {
+      FieldName: blockDepth,
+      Size: 1,
+      Offset: 26,
+      Type: Byte
+    },
+    {
+      FieldName: dataSize,
+      Size: 4,
+      Offset: 28,
+      Type: UInt32
+    },
+    {
+      FieldName: data,
+      Size: 8,
+      Offset: 32,
+      Type: IntPtr
+    },
+    {
+      FieldName: mipSet,
+      Size: 8,
+      Offset: 40,
+      Type: IntPtr
+    }
+  ],
+  Type: struct
+}

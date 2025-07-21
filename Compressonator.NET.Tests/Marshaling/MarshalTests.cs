@@ -33,11 +33,11 @@ public partial class MarshalTests
     [DataRow(12, typeof(KernelPerformanceStats))]
     [DataRow(388, typeof(KernelDeviceInfo))]
     [DataRow(48, typeof(AMD_CMD))]
+    [DataRow(48, typeof(CMP_Texture))]
     [DataTestMethod]
     public async Task TestStructs(int correctSize, Type t)
     {
         Assert.AreEqual(correctSize, Marshal.SizeOf(t), $"{nameof(t)} must marshal as {correctSize} bytes");
-
         await VerifyMemoryLayout(t);
     }
 }

@@ -27,12 +27,12 @@ jobs:
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.x
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - uses: gerlero/apt-install@v1
+      if: startsWith(matrix.os, 'ubuntu') == true
+      with:
+        packages: libhwy-dev liblcms2-dev libjpeg-turbo8-dev libpng-dev libjpeg-dev zlib1g-dev libgif-dev
     - name: Test
-      run: dotnet test --no-restore --configuration Release
+      run: dotnet test --no-restore --configuration Release --filter CI!=false --logger "console;verbosity=detailed"
     - name: Upload Test Results
       if: failure()
       uses: actions/upload-artifact@v4
