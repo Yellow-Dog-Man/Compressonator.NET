@@ -32,7 +32,7 @@ jobs:
       with:
         packages: libhwy-dev liblcms2-dev libjpeg-turbo8-dev libpng-dev libjpeg-dev zlib1g-dev libgif-dev
     - name: Test
-      run: dotnet test --no-restore --configuration Release --filter TestCategory=Smoke --logger "console;verbosity=detailed"
+      run: dotnet test --no-restore --configuration Release --filter CI!=false --logger "console;verbosity=detailed"
     - name: Upload Test Results
       if: failure()
       uses: actions/upload-artifact@v4
