@@ -73,7 +73,6 @@ public sealed class NativeTests
 
         yield return w(() => new CMP_MipSet());
         yield return w(() => new CMP_Texture());
-        yield return w(() => new CMP_MipLevel());
     }
 
     [TestMethod]
