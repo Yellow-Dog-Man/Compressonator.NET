@@ -15,8 +15,7 @@ public class QualityEvaluationTests: SnapshotTestingBase
         "Resources/colorpatch.png",
         "Resources/squares.png",
 
-        //"Resources/wings.png",
-        //"Resources/tulipbody.png"
+        "Resources/wings.png"
     };
 
     [DataRow(CMP_FORMAT.BC1, 1f)]
