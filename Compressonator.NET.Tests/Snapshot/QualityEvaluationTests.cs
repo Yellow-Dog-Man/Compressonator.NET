@@ -15,8 +15,7 @@ public class QualityEvaluationTests: SnapshotTestingBase
         "Resources/colorpatch.png",
         "Resources/squares.png",
 
-        //"Resources/wings.png",
-        //"Resources/tulipbody.png"
+        "Resources/wings.png"
     };
 
     [DataRow(CMP_FORMAT.BC1, 1f)]
@@ -49,10 +48,10 @@ public class QualityEvaluationTests: SnapshotTestingBase
             settings.UseFileName($"{targetFormat}-{quality}");
 
             /// TMP: REMOVE IT!
-            settings.AutoVerify();
+            //settings.AutoVerify();
             var distortedPath = CurrentFile.Relative(SnapshotUtilities.GetFileNameForTest("png"));
 
-            CMP_Texture distortedTexture = SnapshotUtilities.RoundTripWithCompression(path, targetFormat, quality);
+            using CMP_Texture distortedTexture = SnapshotUtilities.RoundTripWithCompression(path, targetFormat, quality);
 
             await SnapshotUtilities.SaveVerifyDelete(distortedTexture, "png", settings);
         }
