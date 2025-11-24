@@ -54,4 +54,17 @@
     <None Include="Native\linux-x64\*.so" Pack="True" PackagePath="runtimes\linux-x64\native\"></None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ContentWithTargetPath Include="Native\linux-arm64\*.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <TargetPath>%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Native\linux-arm64\*.so" Pack="True" PackagePath="runtimes\linux-arm64\native\"></None>
+  </ItemGroup>
+
+
 </Project>
